@@ -1,6 +1,9 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dumbbell, TrendingUp, Activity } from 'lucide-react';
 
 export function Login() {
   const { user, login, signup } = useAuth();
@@ -13,37 +16,63 @@ export function Login() {
   }, [user, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Kinobody Workout Tracker
-          </h1>
-          <p className="text-gray-600">
-            Greek God 2.0 Program
-          </p>
-        </div>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <Card className="max-w-md w-full mx-4 shadow-2xl border-0">
+        <CardHeader className="text-center space-y-2 pb-4">
+          <div className="flex justify-center mb-4">
+            <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-4 rounded-2xl shadow-lg">
+              <Dumbbell className="w-12 h-12 text-white" />
+            </div>
+          </div>
+          <CardTitle className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Greek God Tracker
+          </CardTitle>
+          <CardDescription className="text-base">
+            Kinobody 2.0 Workout Program
+          </CardDescription>
+        </CardHeader>
 
-        <div className="space-y-4">
-          <button
-            onClick={login}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
-            Log In
-          </button>
+        <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <Button
+              onClick={login}
+              className="w-full h-12 text-base font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              size="lg"
+            >
+              Log In
+            </Button>
 
-          <button
-            onClick={signup}
-            className="w-full border-2 border-blue-600 text-blue-600 py-3 px-4 rounded-lg hover:bg-blue-50 transition-colors font-medium"
-          >
-            Sign Up
-          </button>
-        </div>
+            <Button
+              onClick={signup}
+              variant="outline"
+              className="w-full h-12 text-base font-semibold border-2"
+              size="lg"
+            >
+              Sign Up
+            </Button>
+          </div>
 
-        <p className="text-sm text-gray-500 text-center mt-6">
-          Track your workouts, nutrition, and progress across all devices
-        </p>
-      </div>
+          <div className="pt-6 border-t">
+            <p className="text-sm text-gray-600 text-center mb-4 font-medium">
+              Start tracking your journey to greatness
+            </p>
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="flex flex-col items-center space-y-1">
+                <Activity className="w-5 h-5 text-blue-600" />
+                <p className="text-xs text-gray-600">Track Workouts</p>
+              </div>
+              <div className="flex flex-col items-center space-y-1">
+                <TrendingUp className="w-5 h-5 text-green-600" />
+                <p className="text-xs text-gray-600">Monitor Progress</p>
+              </div>
+              <div className="flex flex-col items-center space-y-1">
+                <Dumbbell className="w-5 h-5 text-purple-600" />
+                <p className="text-xs text-gray-600">Build Strength</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
