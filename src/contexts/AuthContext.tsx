@@ -7,6 +7,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  inviteUser: (email: string) => Promise<{ success: boolean; error?: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,8 +40,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await supabase.auth.signOut();
   };
 
+  const inviteUser = async (_email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      // This requires the service role key - you'll need to call this from an Edge Function
+      // or admin API endpoint. For now, this is a placeholder.
+      // In production, create an Edge Function that uses supabase.auth.admin.inviteUserByEmail()
+
+      console.warn('inviteUser needs to be implemented via Edge Function with admin privileges');
+      return {
+        success: false,
+        error: 'Invite functionality requires admin setup. Please use Supabase Dashboard to invite users.'
+      };
+    } catch (error: any) {
+      return { success: false, error: error.message };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, session, loading, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signOut, inviteUser }}>
       {children}
     </AuthContext.Provider>
   );

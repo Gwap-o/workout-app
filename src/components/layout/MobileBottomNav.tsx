@@ -3,7 +3,6 @@ import {
   Home,
   Dumbbell,
   TrendingUp,
-  BarChart3,
   User,
 } from 'lucide-react';
 import {
@@ -25,7 +24,7 @@ const navItems = [
 
 export function MobileBottomNav() {
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
   const isActive = (path: string | null) => {
@@ -77,7 +76,7 @@ export function MobileBottomNav() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={logout}
+                      onClick={signOut}
                       className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:bg-[#1C2128] dark:hover:text-red-300"
                     >
                       <LogOut className="w-4 h-4 mr-2" />

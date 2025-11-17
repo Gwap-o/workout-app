@@ -1,12 +1,6 @@
 import { useTheme } from '@/contexts/ThemeContext';
 import { motion } from 'framer-motion';
 
-const transition = {
-  type: 'spring',
-  stiffness: 200,
-  damping: 10,
-};
-
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';

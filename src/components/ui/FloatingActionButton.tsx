@@ -1,9 +1,9 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 
 export function FloatingActionButton() {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   return (
     <button

@@ -15,7 +15,6 @@ import {
   Dumbbell,
   TrendingUp,
   Utensils,
-  BarChart3,
   BookOpen,
   Settings,
   User,

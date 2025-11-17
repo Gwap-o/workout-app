@@ -43,7 +43,8 @@
       "WebFetch(domain:ui.shadcn.com)",
       "WebFetch(domain:supabase.com)",
       "Bash(npm uninstall:*)",
-      "Bash(node createProgramData.js:*)"
+      "Bash(node createProgramData.js:*)",
+      "mcp__supabase__search_docs"
     ],
     "deny": [],
     "ask": []

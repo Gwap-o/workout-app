@@ -54,7 +54,7 @@ export const Sidebar = forwardRef<SidebarHandle, SidebarProps>(
     const [displayName, setDisplayName] = useState<string>('');
     const location = useLocation();
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { user, signOut } = useAuth();
     const { profile, loading } = useNutrition();
 
     // Update display name when profile loads or changes
@@ -194,7 +194,7 @@ export const Sidebar = forwardRef<SidebarHandle, SidebarProps>(
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={logout}
+                onClick={signOut}
                 className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:bg-[#1C2128] dark:hover:text-red-300"
               >
                 <LogOut className="w-4 h-4 mr-2" />
