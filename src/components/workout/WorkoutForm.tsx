@@ -5,6 +5,7 @@ import { getWorkoutExercises } from '@/lib/constants/exercises';
 import { createWorkoutSession } from '@/lib/supabase/workouts';
 import { createExerciseLogs } from '@/lib/supabase/exercises';
 import { ExerciseCard } from './ExerciseCard';
+import { Input } from '@/components/ui/input';
 
 interface WorkoutFormProps {
   profile: UserProfile;
@@ -96,39 +97,38 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
   return (
     <div className="space-y-6">
       {/* Workout Settings */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold mb-4">Workout Details</h2>
+      <div className="bg-white dark:bg-[#1C2128] p-6 rounded-lg shadow border border-[#E8EAED] dark:border-[#30363D]">
+        <h2 className="text-xl font-semibold mb-4 text-[#202124] dark:text-[#E6EDF3]">Workout Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Date</label>
-            <input
+            <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">Date</label>
+            <Input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">
               Workout Type
             </label>
             <div className="flex gap-2">
               <button
                 onClick={() => setWorkoutType('A')}
-                className={`flex-1 px-4 py-2 rounded font-medium transition-colors ${
+                className={`flex-1 px-4 py-2 rounded font-medium ${
                   workoutType === 'A'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-[#20808D] dark:bg-[#1FB8CD] text-white'
+                    : 'bg-[#F5F5F5] dark:bg-[#161B22] text-[#202124] dark:text-[#E6EDF3] hover:bg-[#E8EAED] dark:hover:bg-[#1C2128]'
                 }`}
               >
                 Workout A
               </button>
               <button
                 onClick={() => setWorkoutType('B')}
-                className={`flex-1 px-4 py-2 rounded font-medium transition-colors ${
+                className={`flex-1 px-4 py-2 rounded font-medium ${
                   workoutType === 'B'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-[#20808D] dark:bg-[#1FB8CD] text-white'
+                    : 'bg-[#F5F5F5] dark:bg-[#161B22] text-[#202124] dark:text-[#E6EDF3] hover:bg-[#E8EAED] dark:hover:bg-[#1C2128]'
                 }`}
               >
                 Workout B
@@ -137,13 +137,13 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
           </div>
         </div>
         <div className="mt-4">
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">
             Workout Notes (Optional)
           </label>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-[#E8EAED] dark:border-[#30363D] bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] placeholder:text-[#80868B] dark:placeholder:text-[#6E7681] rounded focus:outline-none focus:ring-2 focus:ring-[#20808D] dark:focus:ring-[#1FB8CD]"
             rows={3}
             placeholder="How did you feel? Any observations?"
           />
@@ -152,7 +152,7 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
 
       {/* Exercise List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Exercises</h2>
+        <h2 className="text-xl font-semibold text-[#202124] dark:text-[#E6EDF3]">Exercises</h2>
         {exercises.map((exercise) => (
           <ExerciseCard
             key={exercise.name}
@@ -166,14 +166,14 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
       <div className="flex justify-end gap-4">
         <button
           onClick={() => navigate('/')}
-          className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50"
+          className="px-6 py-3 border border-[#E8EAED] dark:border-[#30363D] rounded-lg font-medium text-[#202124] dark:text-[#E6EDF3] hover:bg-[#F5F5F5] dark:hover:bg-[#1C2128]"
         >
           Cancel
         </button>
         <button
           onClick={handleSaveWorkout}
           disabled={saving || exerciseLogs.length === 0}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-3 bg-[#20808D] dark:bg-[#1FB8CD] text-white rounded-lg font-medium hover:bg-[#1A6B76] dark:hover:bg-[#2DD4E8] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {saving ? 'Saving...' : 'Save Workout'}
         </button>

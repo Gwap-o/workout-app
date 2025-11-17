@@ -1,25 +1,29 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { Login } from './pages/Login'
-import { Dashboard } from './pages/Dashboard'
 import { WorkoutLogger } from './pages/WorkoutLogger'
 import { WorkoutHistory } from './pages/WorkoutHistory'
 import { Nutrition } from './pages/Nutrition'
 import { Settings } from './pages/Settings'
+import { Program } from './pages/Program'
 import Progress from './pages/Progress'
+import { Toaster } from 'sonner'
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+        <Toaster position="top-center" richColors />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Progress />
               </ProtectedRoute>
             }
           />
@@ -56,6 +60,14 @@ function App() {
             }
           />
           <Route
+            path="/program"
+            element={
+              <ProtectedRoute>
+                <Program />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/settings"
             element={
               <ProtectedRoute>
@@ -64,8 +76,9 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 

@@ -1,7 +1,7 @@
 // Nutrition Hook
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
-import { getUserProfile, updateUserProfile } from '@/lib/supabase/userProfile'
+import { getUserProfile, updateUserProfile, upsertUserProfile } from '@/lib/supabase/userProfile'
 import {
   calculateNutritionTargets,
   updateProfileWithNutrition,
@@ -106,8 +106,8 @@ export function useNutrition() {
     try {
       setError(null)
 
-      // Update profile first
-      const updated = await updateUserProfile(user.id, updates)
+      // Upsert profile (create or update)
+      const updated = await upsertUserProfile(user.id, updates)
       setProfile(updated)
 
       // Recalculate if we have all required data

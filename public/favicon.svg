@@ -1,0 +1,18 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dumbbell Weight Icon in Brand Colors -->
+
+  <!-- Left weight plate -->
+  <rect x="10" y="35" width="15" height="30" fill="#20808D" rx="2" />
+
+  <!-- Left handle connection -->
+  <rect x="25" y="45" width="10" height="10" fill="#20808D" rx="1" />
+
+  <!-- Center bar/handle -->
+  <rect x="35" y="47" width="30" height="6" fill="#20808D" rx="1" />
+
+  <!-- Right handle connection -->
+  <rect x="65" y="45" width="10" height="10" fill="#20808D" rx="1" />
+
+  <!-- Right weight plate -->
+  <rect x="75" y="35" width="15" height="30" fill="#20808D" rx="2" />
+</svg>

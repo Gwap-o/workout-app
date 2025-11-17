@@ -1,54 +1,46 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import netlifyIdentity from 'netlify-identity-widget';
-import type { NetlifyUser } from '@/types';
+import { supabase } from '@/lib/supabase/client';
+import type { User, Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
-  user: NetlifyUser | null;
+  user: User | null;
+  session: Session | null;
   loading: boolean;
-  login: () => void;
-  signup: () => void;
-  logout: () => void;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<NetlifyUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Initialize Netlify Identity
-    netlifyIdentity.init();
-
-    // Get current user
-    const currentUser = netlifyIdentity.currentUser();
-    setUser(currentUser);
-    setLoading(false);
-
-    // Listen for login
-    netlifyIdentity.on('login', (user?: NetlifyUser) => {
-      setUser(user || null);
-      netlifyIdentity.close();
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
     });
 
-    // Listen for logout
-    netlifyIdentity.on('logout', () => {
-      setUser(null);
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
     });
 
-    // Cleanup listeners
-    return () => {
-      netlifyIdentity.off('login');
-      netlifyIdentity.off('logout');
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
-  const login = () => netlifyIdentity.open('login');
-  const signup = () => netlifyIdentity.open('signup');
-  const logout = () => netlifyIdentity.logout();
+  const signOut = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, session, loading, signOut }}>
       {children}
     </AuthContext.Provider>
   );

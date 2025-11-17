@@ -36,7 +36,14 @@
       "mcp__playwright__playwright_console_logs",
       "mcp__playwright__playwright_get_visible_html",
       "mcp__playwright__playwright_evaluate",
-      "mcp__playwright__playwright_close"
+      "mcp__playwright__playwright_close",
+      "mcp__playwright__playwright_click",
+      "WebSearch",
+      "WebFetch(domain:live.standards.site)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:supabase.com)",
+      "Bash(npm uninstall:*)",
+      "Bash(node createProgramData.js:*)"
     ],
     "deny": [],
     "ask": []

@@ -83,29 +83,29 @@ export const ExerciseCard = ({ exercise, onUpdate }: ExerciseCardProps) => {
   const allSetsCompleted = completedSets === numSets;
 
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-200">
+    <div className="bg-white dark:bg-[#1C2128] rounded-lg shadow border border-[#E8EAED] dark:border-[#30363D]">
       {/* Header */}
       <div
-        className="p-4 cursor-pointer hover:bg-gray-50"
+        className="p-4 cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#161B22]"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-3">
-              <h3 className="text-lg font-semibold">{exercise.name}</h3>
-              <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+              <h3 className="text-lg font-semibold text-[#202124] dark:text-[#E6EDF3]">{exercise.name}</h3>
+              <span className="text-sm text-[#5F6368] dark:text-[#8B949E] bg-[#F5F5F5] dark:bg-[#161B22] px-2 py-1 rounded">
                 {exercise.training_method}
               </span>
             </div>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-[#5F6368] dark:text-[#8B949E] mt-1">
               {completedSets}/{numSets} sets completed
             </p>
           </div>
           <div className="flex items-center gap-2">
             {allSetsCompleted && (
-              <span className="text-green-600 font-medium">✓</span>
+              <span className="text-[#20808D] dark:text-[#1FB8CD] font-medium">✓</span>
             )}
-            <span className="text-gray-400">
+            <span className="text-[#80868B] dark:text-[#6E7681]">
               {isExpanded ? '▼' : '▶'}
             </span>
           </div>
@@ -114,10 +114,10 @@ export const ExerciseCard = ({ exercise, onUpdate }: ExerciseCardProps) => {
 
       {/* Expanded Content */}
       {isExpanded && (
-        <div className="px-4 pb-4 space-y-4 border-t border-gray-200 pt-4">
+        <div className="px-4 pb-4 space-y-4 border-t border-[#E8EAED] dark:border-[#30363D] pt-4">
           {/* Last Workout & Expected Performance */}
           {loading ? (
-            <div className="text-sm text-gray-500">Loading history...</div>
+            <div className="text-sm text-[#5F6368] dark:text-[#8B949E]">Loading history...</div>
           ) : (
             <ProgressionIndicator
               lastLog={lastLog}
@@ -147,7 +147,7 @@ export const ExerciseCard = ({ exercise, onUpdate }: ExerciseCardProps) => {
 
           {/* Notes */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block text-sm font-medium mb-1 text-[#202124] dark:text-[#E6EDF3]">
               Exercise Notes (Optional)
             </label>
             <input
@@ -157,13 +157,13 @@ export const ExerciseCard = ({ exercise, onUpdate }: ExerciseCardProps) => {
                 setNotes(e.target.value);
                 onUpdate(exercise.name, sets, false, e.target.value);
               }}
-              className="w-full px-3 py-2 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-[#E8EAED] dark:border-[#30363D] bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] placeholder:text-[#80868B] dark:placeholder:text-[#6E7681] rounded text-sm focus:outline-none focus:ring-2 focus:ring-[#20808D] dark:focus:ring-[#1FB8CD]"
               placeholder="Form notes, how it felt, etc."
             />
           </div>
 
           {/* Exercise Info */}
-          <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
+          <div className="text-xs text-[#5F6368] dark:text-[#8B949E] bg-[#F5F5F5] dark:bg-[#161B22] p-3 rounded border border-[#E8EAED] dark:border-[#30363D]">
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <span className="font-medium">Target Reps:</span>{' '}

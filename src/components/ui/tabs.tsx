@@ -38,7 +38,7 @@ const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
   ({ className = '', ...props }, ref) => (
     <div
       ref={ref}
-      className={`inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-500 ${className}`}
+      className={`inline-flex h-10 items-center justify-center rounded-md bg-[#F5F5F5] dark:bg-[#161B22] p-1 text-[#5F6368] dark:text-[#8B949E] ${className}`}
       {...props}
     />
   )
@@ -54,7 +54,7 @@ const TabsTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttribut
       <button
         ref={ref}
         type="button"
-        className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${isActive ? 'bg-white text-gray-950 shadow-sm' : 'text-gray-500 hover:text-gray-950'} ${className}`}
+        className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-white dark:ring-offset-[#0D1117] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#20808D] dark:focus-visible:ring-[#1FB8CD] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${isActive ? 'bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] shadow-sm' : 'text-[#5F6368] dark:text-[#8B949E] hover:text-[#202124] dark:hover:text-[#E6EDF3]'} ${className}`}
         onClick={() => onValueChange(triggerValue)}
         {...props}
       />
@@ -72,7 +72,7 @@ const TabsContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
     return (
       <div
         ref={ref}
-        className={`mt-2 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${className}`}
+        className={`mt-2 ring-offset-white dark:ring-offset-[#0D1117] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#20808D] dark:focus-visible:ring-[#1FB8CD] focus-visible:ring-offset-2 ${className}`}
         {...props}
       />
     )

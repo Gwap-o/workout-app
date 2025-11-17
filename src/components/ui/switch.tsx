@@ -16,7 +16,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         role="switch"
         aria-checked={checked}
         ref={ref}
-        className={`peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${checked ? 'bg-blue-600' : 'bg-gray-200'} ${className}`}
+        className={`peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#20808D] dark:focus-visible:ring-[#1FB8CD] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${checked ? 'bg-[#20808D] dark:bg-[#1FB8CD]' : 'bg-[#E8EAED] dark:bg-[#30363D]'} ${className}`}
         onClick={() => !disabled && onCheckedChange(!checked)}
         disabled={disabled}
         {...props}

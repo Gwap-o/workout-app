@@ -25,6 +25,10 @@ export interface UserProfile {
   id: string;
   user_id: string;
 
+  // Personal Info
+  full_name?: string;
+  birthday?: string;
+
   // Personal Stats
   bodyweight: number;
   goal_bodyweight: number;
@@ -248,22 +252,6 @@ export interface FitnessStandards {
   good: number;
   great: number;
   godlike: number;
-}
-
-// Netlify Identity User
-export interface NetlifyUser {
-  id: string;
-  email: string;
-  user_metadata: {
-    full_name?: string;
-  };
-  app_metadata: Record<string, unknown>;
-  token?: {
-    access_token: string;
-    expires_at: number;
-    refresh_token: string;
-    token_type: string;
-  };
 }
 
 // Nutrition Types

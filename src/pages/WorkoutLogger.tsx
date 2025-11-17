@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { getUserProfile } from '@/lib/supabase/userProfile';
 import { WorkoutForm } from '@/components/workout/WorkoutForm';
+import { Layout } from '@/components/layout/Layout';
 import type { UserProfile } from '@/types';
 
 export const WorkoutLogger = () => {
@@ -30,39 +31,43 @@ export const WorkoutLogger = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
-      </div>
+      <Layout>
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-[#202124] dark:text-[#E6EDF3]">Loading...</div>
+        </div>
+      </Layout>
     );
   }
 
   if (!profile) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <h2 className="text-2xl font-bold mb-4">Profile Not Found</h2>
-        <p className="text-gray-600 mb-4">
-          Please create your profile before logging workouts.
-        </p>
-        <button
-          onClick={() => navigate('/settings')}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Go to Settings
-        </button>
-      </div>
+      <Layout>
+        <div className="flex flex-col items-center justify-center h-64 text-center px-4">
+          <h2 className="text-2xl font-bold mb-4 text-[#202124] dark:text-[#E6EDF3]">Profile Not Found</h2>
+          <p className="text-[#5F6368] dark:text-[#8B949E] mb-4">
+            Please create your profile before logging workouts.
+          </p>
+          <button
+            onClick={() => navigate('/settings')}
+            className="px-4 py-2 bg-[#20808D] dark:bg-[#1FB8CD] text-white rounded hover:bg-[#1A6B76] dark:hover:bg-[#2DD4E8]"
+          >
+            Go to Settings
+          </button>
+        </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Log Workout</h1>
-        <p className="text-gray-600">
+    <Layout>
+      <div className="mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-[#202124] dark:text-[#E6EDF3]">Log Workout</h1>
+        <p className="text-sm sm:text-base text-[#5F6368] dark:text-[#8B949E]">
           Phase {profile.current_phase} - Week {profile.current_week}
         </p>
       </div>
 
       <WorkoutForm profile={profile} />
-    </div>
+    </Layout>
   );
 };

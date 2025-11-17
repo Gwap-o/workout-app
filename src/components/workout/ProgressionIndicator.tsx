@@ -16,11 +16,11 @@ export const ProgressionIndicator = ({
 
   if (!lastLog) {
     return (
-      <div className="bg-blue-50 border border-blue-200 rounded p-3">
-        <p className="text-sm text-blue-800 font-medium">
+      <div className="bg-[#20808D]/10 dark:bg-[#1FB8CD]/10 border border-[#20808D] dark:border-[#1FB8CD] rounded p-3">
+        <p className="text-sm text-[#20808D] dark:text-[#1FB8CD] font-medium">
           First time logging this exercise
         </p>
-        <p className="text-xs text-blue-600 mt-1">
+        <p className="text-xs text-[#5F6368] dark:text-[#8B949E] mt-1">
           Start with a weight you can handle for {exercise.rep_range.min}-
           {exercise.rep_range.max} reps with good form
         </p>
@@ -33,13 +33,13 @@ export const ProgressionIndicator = ({
   return (
     <div className="space-y-2">
       {/* Last Workout */}
-      <div className="bg-gray-50 border border-gray-200 rounded p-3">
-        <p className="text-xs text-gray-600 mb-1">Last Workout</p>
-        <p className="font-semibold">
+      <div className="bg-[#F5F5F5] dark:bg-[#161B22] border border-[#E8EAED] dark:border-[#30363D] rounded p-3">
+        <p className="text-xs text-[#5F6368] dark:text-[#8B949E] mb-1">Last Workout</p>
+        <p className="font-semibold text-[#202124] dark:text-[#E6EDF3]">
           {lastSet.weight} lbs × {lastSet.reps} reps
         </p>
         {lastLog.date && (
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-[#80868B] dark:text-[#6E7681] mt-1">
             {new Date(lastLog.date).toLocaleDateString()}
           </p>
         )}
@@ -47,22 +47,22 @@ export const ProgressionIndicator = ({
 
       {/* Expected Performance */}
       {expectedPerformance && (
-        <div className="bg-green-50 border border-green-200 rounded p-3">
-          <p className="text-xs text-green-800 mb-1">
+        <div className="bg-[#20808D]/10 dark:bg-[#1FB8CD]/10 border border-[#20808D] dark:border-[#1FB8CD] rounded p-3">
+          <p className="text-xs text-[#20808D] dark:text-[#1FB8CD] mb-1">
             Target for Today (Double Progression)
           </p>
-          <p className="font-semibold text-green-900">
+          <p className="font-semibold text-[#20808D] dark:text-[#1FB8CD]">
             {expectedPerformance.weight} lbs × {expectedPerformance.reps} reps
           </p>
           {expectedPerformance.weight > lastSet.weight && (
-            <p className="text-xs text-green-700 mt-1">
+            <p className="text-xs text-[#5F6368] dark:text-[#8B949E] mt-1">
               Weight increase: +{expectedPerformance.weight - lastSet.weight}{' '}
               lbs
             </p>
           )}
           {expectedPerformance.weight === lastSet.weight &&
             expectedPerformance.reps > lastSet.reps && (
-              <p className="text-xs text-green-700 mt-1">
+              <p className="text-xs text-[#5F6368] dark:text-[#8B949E] mt-1">
                 Rep increase: +{expectedPerformance.reps - lastSet.reps} rep(s)
               </p>
             )}
@@ -71,14 +71,14 @@ export const ProgressionIndicator = ({
 
       {/* Plateau Warning */}
       {plateauAnalysis?.isPlateaued && (
-        <div className="bg-yellow-50 border border-yellow-300 rounded p-3">
-          <p className="text-xs text-yellow-800 font-medium mb-1">
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded p-3">
+          <p className="text-xs text-yellow-800 dark:text-yellow-300 font-medium mb-1">
             Plateau Detected
           </p>
-          <p className="text-xs text-yellow-700">
+          <p className="text-xs text-yellow-700 dark:text-yellow-400">
             {plateauAnalysis.suggestion}
           </p>
-          <p className="text-xs text-yellow-600 mt-1">
+          <p className="text-xs text-yellow-600 dark:text-yellow-500 mt-1">
             Stagnant for {plateauAnalysis.consecutiveStagnantWorkouts} workout
             {plateauAnalysis.consecutiveStagnantWorkouts > 1 ? 's' : ''}
           </p>

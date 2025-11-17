@@ -46,3 +46,21 @@ export const updateUserProfile = async (
   if (error) throw error;
   return data;
 };
+
+export const upsertUserProfile = async (
+  userId: string,
+  profileData: Partial<UserProfile>
+): Promise<UserProfile> => {
+  // Use upsert to create or update the profile
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .upsert(
+      { ...profileData, user_id: userId },
+      { onConflict: 'user_id' }
+    )
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};

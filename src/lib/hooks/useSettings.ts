@@ -144,22 +144,9 @@ export function useSettings() {
 
   /**
    * Apply theme to document
+   * NOTE: Theme application is now handled by ThemeContext to avoid conflicts
    */
-  useEffect(() => {
-    if (settings.theme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else if (settings.theme === 'light') {
-      document.documentElement.classList.remove('dark')
-    } else {
-      // Auto: use system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      if (prefersDark) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    }
-  }, [settings.theme])
+  // Removed duplicate theme application - ThemeContext handles this
 
   return {
     loading,

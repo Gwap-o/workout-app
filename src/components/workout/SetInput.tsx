@@ -45,17 +45,17 @@ export const SetInput = ({
     <div
       className={`flex items-center gap-3 p-3 rounded-lg border ${
         isCompleted
-          ? 'bg-green-50 border-green-300'
-          : 'bg-gray-50 border-gray-200'
+          ? 'bg-[#20808D]/10 dark:bg-[#1FB8CD]/10 border-[#20808D] dark:border-[#1FB8CD]'
+          : 'bg-[#F5F5F5] dark:bg-[#161B22] border-[#E8EAED] dark:border-[#30363D]'
       } ${disabled ? 'opacity-50' : ''}`}
     >
-      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 font-semibold text-sm">
+      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#E8EAED] dark:bg-[#30363D] font-semibold text-sm text-[#202124] dark:text-[#E6EDF3]">
         {setNumber}
       </div>
 
       <div className="flex-1 grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">
+          <label className="block text-xs font-medium text-[#5F6368] dark:text-[#8B949E] mb-1">
             Weight (lbs)
           </label>
           <input
@@ -63,7 +63,7 @@ export const SetInput = ({
             value={weight}
             onChange={(e) => handleWeightChange(e.target.value)}
             disabled={disabled}
-            className="w-full px-3 py-2 border rounded text-center font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-3 py-2 border border-[#E8EAED] dark:border-[#30363D] bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] rounded text-center font-semibold focus:outline-none focus:ring-2 focus:ring-[#20808D] dark:focus:ring-[#1FB8CD] disabled:bg-[#F5F5F5] dark:disabled:bg-[#0D1117] disabled:cursor-not-allowed"
             placeholder="0"
             step="5"
             min="0"
@@ -71,7 +71,7 @@ export const SetInput = ({
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">
+          <label className="block text-xs font-medium text-[#5F6368] dark:text-[#8B949E] mb-1">
             Reps
           </label>
           <input
@@ -79,19 +79,19 @@ export const SetInput = ({
             value={reps}
             onChange={(e) => handleRepsChange(e.target.value)}
             disabled={disabled}
-            className="w-full px-3 py-2 border rounded text-center font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-3 py-2 border border-[#E8EAED] dark:border-[#30363D] bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] rounded text-center font-semibold focus:outline-none focus:ring-2 focus:ring-[#20808D] dark:focus:ring-[#1FB8CD] disabled:bg-[#F5F5F5] dark:disabled:bg-[#0D1117] disabled:cursor-not-allowed"
             placeholder="0"
             min="0"
           />
         </div>
       </div>
 
-      <div className="text-sm text-gray-500 min-w-[60px]">
+      <div className="text-sm text-[#5F6368] dark:text-[#8B949E] min-w-[60px]">
         Target: {targetReps}
       </div>
 
       {isCompleted && (
-        <div className="text-green-600 font-bold">✓</div>
+        <div className="text-[#20808D] dark:text-[#1FB8CD] font-bold">✓</div>
       )}
     </div>
   );

@@ -225,10 +225,16 @@ export async function deleteUserAccount(): Promise<void> {
   // Clear all data first
   await clearAllData()
 
-  // Delete profile
+  // Delete profile and settings
   await supabase.from('user_profiles').delete().eq('user_id', user.id)
   await supabase.from('user_settings').delete().eq('user_id', user.id)
 
-  // Note: Netlify Identity user deletion must be done through Netlify dashboard
-  // or their API - Supabase can't delete the auth user directly
+  // Delete the Supabase auth user
+  // Note: This requires the user to be authenticated and will sign them out
+  const { error } = await supabase.auth.admin.deleteUser(user.id)
+  if (error) {
+    // If admin deletion fails (requires service role), try user deletion
+    const { error: deleteError } = await supabase.rpc('delete_user')
+    if (deleteError) throw deleteError
+  }
 }

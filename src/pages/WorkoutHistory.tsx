@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useWorkouts } from '@/lib/hooks/useWorkouts';
 import { WorkoutCard } from '@/components/history/WorkoutCard';
 import { FilterBar } from '@/components/history/FilterBar';
+import { Layout } from '@/components/layout/Layout';
 import { Link } from 'react-router-dom';
 
 export const WorkoutHistory = () => {
@@ -17,29 +18,35 @@ export const WorkoutHistory = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading workout history...</div>
-      </div>
+      <Layout>
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-[#202124] dark:text-[#E6EDF3]">Loading workout history...</div>
+        </div>
+      </Layout>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="text-red-600 mb-4">Error loading workouts</div>
-        <p className="text-gray-600">{error.message}</p>
-      </div>
+      <Layout>
+        <div className="flex flex-col items-center justify-center h-64">
+          <div className="text-red-600 dark:text-red-400 mb-4">Error loading workouts</div>
+          <p className="text-[#5F6368] dark:text-[#8B949E]">{error.message}</p>
+        </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-3xl font-bold">Workout History</h1>
+    <Layout>
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#202124] dark:text-[#E6EDF3]">Workout History</h1>
+          </div>
           <Link
             to="/workout"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-[#20808D] dark:bg-[#1FB8CD] text-white rounded-lg hover:bg-[#1A6B76] dark:hover:bg-[#2DD4E8] text-center"
           >
             Log Workout
           </Link>
@@ -52,14 +59,14 @@ export const WorkoutHistory = () => {
           onSearchDateChange={setSearchDate}
         />
 
-        <div className="text-sm text-gray-600 mt-4">
+        <div className="text-sm text-[#5F6368] dark:text-[#8B949E] mt-4">
           Showing {filteredWorkouts.length} of {workouts.length} workouts
         </div>
       </div>
 
       {filteredWorkouts.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">
+          <p className="text-[#5F6368] dark:text-[#8B949E] mb-4">
             {workouts.length === 0
               ? 'No workouts logged yet'
               : 'No workouts match your filters'}
@@ -67,7 +74,7 @@ export const WorkoutHistory = () => {
           {workouts.length === 0 && (
             <Link
               to="/workout"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="inline-block px-6 py-3 bg-[#20808D] dark:bg-[#1FB8CD] text-white rounded-lg hover:bg-[#1A6B76] dark:hover:bg-[#2DD4E8]"
             >
               Log Your First Workout
             </Link>
@@ -84,6 +91,6 @@ export const WorkoutHistory = () => {
           ))}
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
