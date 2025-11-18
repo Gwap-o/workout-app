@@ -9,6 +9,7 @@ import { Nutrition } from './pages/Nutrition'
 import { Settings } from './pages/Settings'
 import { Program } from './pages/Program'
 import { IndicatorDashboard } from './pages/IndicatorDashboard'
+import ExerciseLibrary from './pages/ExerciseLibrary'
 import { Toaster } from 'sonner'
 
 function App() {
@@ -64,6 +65,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <IndicatorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/exercises"
+            element={
+              <ProtectedRoute>
+                <ExerciseLibrary />
               </ProtectedRoute>
             }
           />
