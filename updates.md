@@ -62,7 +62,6 @@ This document tracks the feature gaps between the documented Greek God 2.0 progr
 - ✅ Created warmup calculation utilities (warmupCalculations.ts)
 - ✅ Warmup set calculator generates 60%, 75%, 90% of working weight
 - ✅ Created WarmupSetInput component for UI
-- ✅ Created WarmupSetCalculator component (alternative implementation)
 - ✅ Integrated warmup sets into ExerciseCard
 - ✅ Show/hide warmup sets toggle
 - ✅ Auto-calculated warmup weights with rep guidance:
@@ -77,7 +76,6 @@ This document tracks the feature gaps between the documented Greek God 2.0 progr
 
 **Files Created:**
 - `src/components/workout/WarmupSetInput.tsx` (99 lines)
-- `src/components/workout/WarmupSetCalculator.tsx` (241 lines - alternative implementation)
 - `src/lib/utils/warmupCalculations.ts` (116 lines)
 
 **Files Modified:**

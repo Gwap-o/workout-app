@@ -11,7 +11,6 @@ interface DeloadWeekBannerProps {
 export const DeloadWeekBanner = ({
   isDeloadWeek,
   reductionPercentage = 10,
-  onStartDeload,
   onEndDeload,
 }: DeloadWeekBannerProps) => {
   const [showDetails, setShowDetails] = useState(false);

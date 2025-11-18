@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import type { ExerciseLog } from '@/types';
+import { useState } from 'react';
 import {
   type IndicatorExerciseName,
   INDICATOR_STRENGTH_STANDARDS,
