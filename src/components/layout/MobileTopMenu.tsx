@@ -10,6 +10,8 @@ import {
   Menu,
   X,
   User,
+  Target,
+  Library,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -17,6 +19,8 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 const navItems = [
   { to: '/workout', icon: Dumbbell, label: 'Log Workout' },
   { to: '/history', icon: TrendingUp, label: 'History' },
+  { to: '/indicators', icon: Target, label: 'Indicators' },
+  { to: '/exercises', icon: Library, label: 'Exercises' },
   { to: '/nutrition', icon: Utensils, label: 'Nutrition' },
   { to: '/program', icon: BookOpen, label: 'Program' },
 ];
@@ -55,14 +59,14 @@ export function MobileTopMenu() {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 bg-black/50 z-[100]"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Menu Drawer */}
       <div
-        className={`fixed top-0 right-0 h-screen w-80 bg-[#FCFCF9] dark:bg-[#0D1117] border-l border-[#E8EAED] dark:border-[#30363D] z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-screen w-80 bg-[#FCFCF9] dark:bg-[#0D1117] border-l border-[#E8EAED] dark:border-[#30363D] z-[110] transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

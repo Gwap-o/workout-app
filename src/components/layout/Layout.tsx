@@ -50,7 +50,7 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </header>
 
-        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-6">
+        <main className="flex-1 p-6 sm:p-8 lg:p-10 space-y-6 relative z-0">
           {children}
         </main>
       </div>

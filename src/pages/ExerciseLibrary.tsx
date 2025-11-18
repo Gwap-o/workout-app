@@ -454,45 +454,47 @@ const ExerciseLibrary: React.FC = () => {
                   )}
                 </div>
 
-                <div className="rounded-2xl border border-[#E8EAED] dark:border-[#30363D] overflow-x-auto bg-white dark:bg-[#161B22]">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="hover:bg-transparent">
-                        <TableHead className="w-[35%] min-w-[200px]">Exercise</TableHead>
-                        <TableHead className="min-w-[120px]">Category</TableHead>
-                        <TableHead className="text-center min-w-[80px]">Day</TableHead>
-                        <TableHead className="min-w-[150px]">Training Method</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {exercises.map((exercise) => (
-                        <TableRow
-                          key={exercise.id}
-                          onClick={() => setSelectedExercise(exercise)}
-                          className="cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#0D1117] transition-colors"
-                        >
-                          <TableCell className="font-semibold">{exercise.name}</TableCell>
-                          <TableCell>
-                            <Badge variant="outline">
-                              {formatCategory(exercise.category)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {exercise.workoutDay ? (
-                              <Badge className="bg-[#20808D] dark:bg-[#1FB8CD] hover:bg-[#1A6B76] dark:hover:bg-[#1A96A8]">
-                                {exercise.workoutDay}
-                              </Badge>
-                            ) : (
-                              <span className="text-[#5F6368] dark:text-[#8B949E] text-sm">—</span>
-                            )}
-                          </TableCell>
-                          <TableCell className="text-sm text-[#5F6368] dark:text-[#8B949E]">
-                            {exercise.trainingMethod}
-                          </TableCell>
+                <div className="rounded-2xl border border-[#E8EAED] dark:border-[#30363D] overflow-hidden bg-white dark:bg-[#161B22]">
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="hover:bg-transparent">
+                          <TableHead className="min-w-[180px]">Exercise</TableHead>
+                          <TableHead className="min-w-[100px] hidden sm:table-cell">Category</TableHead>
+                          <TableHead className="text-center min-w-[60px]">Day</TableHead>
+                          <TableHead className="min-w-[120px] hidden md:table-cell">Training Method</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {exercises.map((exercise) => (
+                          <TableRow
+                            key={exercise.id}
+                            onClick={() => setSelectedExercise(exercise)}
+                            className="cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#0D1117] transition-colors"
+                          >
+                            <TableCell className="font-semibold">{exercise.name}</TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                              <Badge variant="outline">
+                                {formatCategory(exercise.category)}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-center">
+                              {exercise.workoutDay ? (
+                                <Badge className="bg-[#20808D] dark:bg-[#1FB8CD] hover:bg-[#1A6B76] dark:hover:bg-[#1A96A8]">
+                                  {exercise.workoutDay}
+                                </Badge>
+                              ) : (
+                                <span className="text-[#5F6368] dark:text-[#8B949E] text-sm">—</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-sm text-[#5F6368] dark:text-[#8B949E] hidden md:table-cell">
+                              {exercise.trainingMethod}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </div>
               </div>
             ))}
@@ -528,90 +530,94 @@ const ExerciseLibrary: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-[#E8EAED] dark:border-[#30363D] overflow-x-auto bg-white dark:bg-[#161B22]">
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="hover:bg-transparent">
-                          <TableHead className="w-[35%] min-w-[200px]">Exercise</TableHead>
-                          <TableHead className="min-w-[120px]">Category</TableHead>
-                          <TableHead className="text-center min-w-[80px]">Day</TableHead>
-                          <TableHead className="min-w-[150px]">Training Method</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {categoryExercises.map((exercise) => (
-                          <TableRow
-                            key={exercise.id}
-                            onClick={() => setSelectedExercise(exercise)}
-                            className="cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#0D1117] transition-colors"
-                          >
-                            <TableCell className="font-semibold">{exercise.name}</TableCell>
-                            <TableCell>
-                              <Badge variant="outline">
-                                {formatCategory(exercise.category)}
-                              </Badge>
-                            </TableCell>
-                            <TableCell className="text-center">
-                              {exercise.workoutDay ? (
-                                <Badge className="bg-[#20808D] dark:bg-[#1FB8CD]">
-                                  {exercise.workoutDay}
-                                </Badge>
-                              ) : (
-                                <span className="text-[#5F6368] dark:text-[#8B949E] text-sm">—</span>
-                              )}
-                            </TableCell>
-                            <TableCell className="text-sm text-[#5F6368] dark:text-[#8B949E]">
-                              {exercise.trainingMethod}
-                            </TableCell>
+                  <div className="rounded-2xl border border-[#E8EAED] dark:border-[#30363D] overflow-hidden bg-white dark:bg-[#161B22]">
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="hover:bg-transparent">
+                            <TableHead className="min-w-[180px]">Exercise</TableHead>
+                            <TableHead className="min-w-[100px] hidden sm:table-cell">Category</TableHead>
+                            <TableHead className="text-center min-w-[60px]">Day</TableHead>
+                            <TableHead className="min-w-[120px] hidden md:table-cell">Training Method</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+                        </TableHeader>
+                        <TableBody>
+                          {categoryExercises.map((exercise) => (
+                            <TableRow
+                              key={exercise.id}
+                              onClick={() => setSelectedExercise(exercise)}
+                              className="cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#0D1117] transition-colors"
+                            >
+                              <TableCell className="font-semibold">{exercise.name}</TableCell>
+                              <TableCell className="hidden sm:table-cell">
+                                <Badge variant="outline">
+                                  {formatCategory(exercise.category)}
+                                </Badge>
+                              </TableCell>
+                              <TableCell className="text-center">
+                                {exercise.workoutDay ? (
+                                  <Badge className="bg-[#20808D] dark:bg-[#1FB8CD]">
+                                    {exercise.workoutDay}
+                                  </Badge>
+                                ) : (
+                                  <span className="text-[#5F6368] dark:text-[#8B949E] text-sm">—</span>
+                                )}
+                              </TableCell>
+                              <TableCell className="text-sm text-[#5F6368] dark:text-[#8B949E] hidden md:table-cell">
+                                {exercise.trainingMethod}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <div className="rounded-2xl border border-[#E8EAED] dark:border-[#30363D] overflow-x-auto bg-white dark:bg-[#161B22]">
-            <Table>
-              <TableHeader>
-                <TableRow className="hover:bg-transparent">
-                  <TableHead className="w-[35%] min-w-[200px]">Exercise</TableHead>
-                  <TableHead className="min-w-[120px]">Category</TableHead>
-                  <TableHead className="text-center min-w-[80px]">Day</TableHead>
-                  <TableHead className="min-w-[150px]">Training Method</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredExercises.map((exercise) => (
-                  <TableRow
-                    key={exercise.id}
-                    onClick={() => setSelectedExercise(exercise)}
-                    className="cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#0D1117] transition-colors"
-                  >
-                    <TableCell className="font-semibold">{exercise.name}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline">
-                        {formatCategory(exercise.category)}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {exercise.workoutDay ? (
-                        <Badge className="bg-[#20808D] dark:bg-[#1FB8CD]">
-                          {exercise.workoutDay}
-                        </Badge>
-                      ) : (
-                        <span className="text-[#5F6368] dark:text-[#8B949E] text-sm">—</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-sm text-[#5F6368] dark:text-[#8B949E]">
-                      {exercise.trainingMethod}
-                    </TableCell>
+          <div className="rounded-2xl border border-[#E8EAED] dark:border-[#30363D] overflow-hidden bg-white dark:bg-[#161B22]">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead className="min-w-[180px]">Exercise</TableHead>
+                    <TableHead className="min-w-[100px] hidden sm:table-cell">Category</TableHead>
+                    <TableHead className="text-center min-w-[60px]">Day</TableHead>
+                    <TableHead className="min-w-[120px] hidden md:table-cell">Training Method</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredExercises.map((exercise) => (
+                    <TableRow
+                      key={exercise.id}
+                      onClick={() => setSelectedExercise(exercise)}
+                      className="cursor-pointer hover:bg-[#F5F5F5] dark:hover:bg-[#0D1117] transition-colors"
+                    >
+                      <TableCell className="font-semibold">{exercise.name}</TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <Badge variant="outline">
+                          {formatCategory(exercise.category)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {exercise.workoutDay ? (
+                          <Badge className="bg-[#20808D] dark:bg-[#1FB8CD]">
+                            {exercise.workoutDay}
+                          </Badge>
+                        ) : (
+                          <span className="text-[#5F6368] dark:text-[#8B949E] text-sm">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-sm text-[#5F6368] dark:text-[#8B949E] hidden md:table-cell">
+                        {exercise.trainingMethod}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </div>
         )}
       </div>
