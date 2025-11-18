@@ -52,7 +52,8 @@
       "Bash(echo:*)",
       "Bash(timeout:*)",
       "mcp__playwright__playwright_get_visible_text",
-      "mcp__playwright__playwright_fill"
+      "mcp__playwright__playwright_fill",
+      "Bash(\"C:\\Users\\Danny\\Desktop\\Claude\\workout-app\\src\\components\\workout\\WarmupSetCalculator.tsx\")"
     ],
     "deny": [],
     "ask": []

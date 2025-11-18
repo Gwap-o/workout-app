@@ -10,6 +10,7 @@ import { DeloadWeekBanner } from './DeloadWeekBanner';
 import { useDeload } from '@/lib/hooks/useDeload';
 import { ScheduleValidator } from './ScheduleValidator';
 import { useWorkouts } from '@/lib/hooks/useWorkouts';
+import { TrainingMethodLegend } from './TrainingMethodBadge';
 
 interface WorkoutFormProps {
   profile: UserProfile;
@@ -188,6 +189,9 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
           }
         }}
       />
+
+      {/* Training Method Legend */}
+      <TrainingMethodLegend />
 
       {/* Exercise List */}
       <div className="space-y-4">

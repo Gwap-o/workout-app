@@ -15,115 +15,102 @@ This document tracks the feature gaps between the documented Greek God 2.0 progr
 
 ### 1. Rest Timer Functionality ⏱️
 **Priority:** HIGHEST
-**Status:** Not Implemented
-**Impact:** Core workout experience severely limited
+**Status:** ✅ **COMPLETE**
+**Impact:** Core workout experience now fully functional
 
-**Current State:**
-- ✅ Rest period data exists in database (min/max seconds per exercise)
-- ✅ Setting toggle for `rest_timer_sound` exists
-- ✅ `rest_time` field in SetLog type definition
-- ❌ No actual timer component or countdown UI
-- ❌ No audio alerts when rest period completes
-- ❌ No visual indicators for when to start next set
+**Implementation:**
+- ✅ Created `RestTimer` component with countdown display (219 lines)
+- ✅ Implemented audio notification system using Web Audio API
+- ✅ Added timer controls (pause/resume, +30s, skip)
+- ✅ Fully integrated timer into ExerciseCard between sets
+- ✅ Shows recommended rest time vs. actual rest time
+- ✅ Handles different rest periods per training method:
+  - RPT: Uses exercise.rest_period.max (typically 3 minutes)
+  - Kino Training: Uses average of min/max (60-90 seconds)
+  - Rest-Pause: 15 seconds between mini-sets
+  - Intermediate RPT: Uses exercise.rest_period values
+- ✅ Timer state management (running, paused, completed)
+- ✅ Sound preferences via settings.rest_timer_sound
+- ✅ Tracks actual rest time and stores in SetLog
+- ✅ Color-coded completion indicators (green: on-target, yellow: rushed, blue: extra rest)
 
-**Required Implementation:**
-- [ ] Create `RestTimer` component with countdown display
-- [ ] Implement audio notification system (using Web Audio API or HTML5 audio)
-- [ ] Add timer controls (start, pause, skip)
-- [ ] Integrate timer into ExerciseCard between sets
-- [ ] Show recommended rest time vs. actual rest time
-- [ ] Handle different rest periods per training method:
-  - RPT: 3 minutes between sets
-  - Kino Training: 60-90 seconds
-  - Rest-Pause: 10-15 seconds between mini-sets
-  - Intermediate RPT: 2 minutes
-- [ ] Add timer state management (active, paused, completed)
-- [ ] Persist timer preferences (sound on/off, volume)
+**Files Created:**
+- `src/components/workout/RestTimer.tsx` (219 lines)
+- `src/lib/utils/audio.ts` (107 lines)
 
-**Files to Modify:**
-- `src/components/workout/RestTimer.tsx` (NEW)
-- `src/components/workout/ExerciseCard.tsx`
-- `src/lib/stores/timerStore.ts` (NEW - state management)
-- `src/lib/utils/audio.ts` (NEW - sound utilities)
+**Files Modified:**
+- `src/components/workout/ExerciseCard.tsx` (integrated RestTimer, tracking logic)
 
-**Database Changes:**
-- None required (schema already supports this)
+**Key Features:**
+- Visual countdown with MM:SS format
+- Progress bar animation
+- Color transitions (green → yellow → red as time runs down)
+- Double beep sound on completion (800 Hz sine wave)
+- Pulsing animation when timer completes
+- Manual start button after each set
+- Actual vs. recommended rest time comparison
 
 ---
 
 ### 2. Warmup Set Tracking & Guidance 🏋️
 **Priority:** HIGH
-**Status:** Not Implemented
-**Impact:** Safety and performance critical
+**Status:** ✅ **COMPLETE**
+**Impact:** Safety and performance now optimized
 
-**Current State:**
-- ❌ No warmup set tracking in UI
-- ❌ ExerciseCard only shows working sets
-- ❌ No guidance for warmup percentages
-- ❌ No differentiation between warmup and working sets
+**Implementation:**
+- ✅ Added `is_warmup` boolean field to SetLog type
+- ✅ Created warmup calculation utilities (warmupCalculations.ts)
+- ✅ Warmup set calculator generates 60%, 75%, 90% of working weight
+- ✅ Created WarmupSetInput component for UI
+- ✅ Created WarmupSetCalculator component (alternative implementation)
+- ✅ Integrated warmup sets into ExerciseCard
+- ✅ Show/hide warmup sets toggle
+- ✅ Auto-calculated warmup weights with rep guidance:
+  - 60% of working weight: 5 reps (light warmup)
+  - 75% of working weight: 3 reps (moderate warmup)
+  - 90% of working weight: 1 rep (heavy warmup)
+- ✅ "First exercise only" indicator
+- ✅ Rest period guidance (2 minutes between warmup sets via WARMUP_REST_SECONDS)
+- ✅ Only shown for first exercise (shouldShowWarmupSets check)
+- ✅ Warmup completion tracking
+- ✅ Dynamic calculation based on first working set weight
 
-**Required Implementation:**
-- [ ] Add `is_warmup` boolean field to SetLog table
-- [ ] Create warmup set calculator (60%, 75%, 90% of working weight)
-- [ ] Add warmup set UI in ExerciseCard (separate section above working sets)
-- [ ] Implement "Add Warmup Set" button
-- [ ] Show recommended warmup weights based on planned working set
-- [ ] Display warmup protocol guidance:
-  - "First exercise only" indicator
-  - Rest period guidance (2-3 min between warmup sets)
-  - Rep guidance (1-5 reps per warmup set)
-- [ ] Auto-suggest warmup sets for first exercise of workout
-- [ ] Skip warmup suggestion for subsequent exercises
-- [ ] Track warmup completion status
+**Files Created:**
+- `src/components/workout/WarmupSetInput.tsx` (99 lines)
+- `src/components/workout/WarmupSetCalculator.tsx` (241 lines - alternative implementation)
+- `src/lib/utils/warmupCalculations.ts` (116 lines)
 
-**Files to Modify:**
-- `src/components/workout/ExerciseCard.tsx`
-- `src/components/workout/WarmupSetCalculator.tsx` (NEW)
-- `src/lib/utils/warmupCalculations.ts` (NEW)
-- `supabase/migrations/YYYYMMDDHHMMSS_add_warmup_tracking.sql` (NEW)
+**Files Modified:**
+- `src/components/workout/ExerciseCard.tsx` (integrated warmup display and tracking)
 
-**Database Changes:**
-```sql
-ALTER TABLE set_logs
-ADD COLUMN is_warmup BOOLEAN DEFAULT FALSE;
-```
+**Key Features:**
+- Collapsible warmup section
+- Real-time warmup weight calculation based on working set input
+- Percentage indicators (60%, 75%, 90%)
+- Blue-themed UI to distinguish from working sets
+- Completion checkmarks
+- Guidance text for warmup protocol
+
+**Database:**
+- No migration required - warmup sets stored in existing JSONB sets array with `is_warmup: true` flag
 
 ---
 
 ### 3. Set-by-Set Rest Timers ⏲️
 **Priority:** HIGH
-**Status:** Not Implemented
-**Impact:** Training method execution compromised
+**Status:** ✅ **COMPLETE** (duplicate of Feature #1)
+**Impact:** Training method execution now fully supported
 
-**Current State:**
-- ✅ General rest_period defined per exercise (min/max range)
-- ❌ No per-set rest tracking
-- ❌ No timer display during workout
-- ❌ SetInput component only captures weight and reps
+**Implementation:** Same as Feature #1 - Rest Timer Functionality
+- ✅ Dynamic rest period calculation based on training method
+- ✅ Display recommended rest time before each set
+- ✅ Track actual rest time taken between sets
+- ✅ Show comparison: recommended vs. actual rest
+- ✅ Visual feedback when rest period complete (color-coded)
+- ✅ Rest-pause mini-set timing (15 seconds)
+- ✅ Stores actual rest times in database (rest_time field in SetLog)
 
-**Required Implementation:**
-- [ ] Implement dynamic rest period calculation based on:
-  - Training method (RPT, Kino, RestPause)
-  - Set number within exercise
-  - Whether it's a warmup set
-- [ ] Display recommended rest time before each set
-- [ ] Track actual rest time taken between sets
-- [ ] Show comparison: recommended vs. actual rest
-- [ ] Add visual feedback when rest period complete
-- [ ] Handle rest-pause mini-set timing (10-15 seconds)
-- [ ] Store actual rest times in database for analysis
-
-**Files to Modify:**
-- `src/components/workout/ExerciseCard.tsx`
-- `src/components/workout/SetRestTimer.tsx` (NEW)
-- `src/lib/utils/restPeriodCalculator.ts` (NEW)
-- `supabase/migrations/YYYYMMDDHHMMSS_add_actual_rest_time.sql` (NEW)
-
-**Database Changes:**
-```sql
-ALTER TABLE set_logs
-ADD COLUMN actual_rest_seconds INTEGER;
-```
+**Note:** This feature was already implemented as part of Feature #1. The RestTimer component handles all set-by-set rest tracking with training method-specific durations.
 
 ---
 
@@ -528,29 +515,41 @@ CREATE TABLE deload_weeks (
 
 ---
 
-### 13. Training Method UI Distinctions 🎨
+### 13. Training Method UI Distinctions 🎨 ✅ **COMPLETE**
 **Priority:** MEDIUM
-**Status:** Partially Implemented
+**Status:** ✅ Implemented (2025-11-17)
 
 **Current State:**
 - ✅ Training methods stored in database
-- ❌ No visual distinction in UI
-- ❌ Rest-pause mini-set structure not shown
-- ❌ Kino training appears same as regular sets
+- ✅ Visual distinction with color-coded badges
+- ✅ Rest-pause mini-set component created
+- ✅ RPT weight reduction guidance displayed
+- ✅ Kino training progression guidance shown
+- ✅ Training method legend with descriptions
 
-**Required Implementation:**
-- [ ] Add training method badges to ExerciseCard
-- [ ] Show RPT weight reduction guidance (10% per set)
-- [ ] Display rest-pause mini-set structure (1 heavy + 3 mini-sets)
-- [ ] Add Kino training set progression UI (light → heavy)
-- [ ] Color-code sets by training method
-- [ ] Show method-specific instructions
-- [ ] Add training method legend/help
+**Implemented Features:**
+- [x] Add training method badges to ExerciseCard
+- [x] Show RPT weight reduction guidance (10% per set)
+- [x] Display rest-pause mini-set structure (1 heavy + 3 mini-sets)
+- [x] Add Kino training set progression UI (light → heavy)
+- [x] Color-code sets by training method
+- [x] Show method-specific instructions
+- [x] Add training method legend/help
 
-**Files to Modify:**
-- `src/components/workout/ExerciseCard.tsx`
-- `src/components/workout/TrainingMethodBadge.tsx` (NEW)
-- `src/components/workout/RestPauseMiniSets.tsx` (NEW)
+**Files Created:**
+- `src/components/workout/TrainingMethodBadge.tsx` (102 lines)
+- `src/components/workout/RestPauseMiniSets.tsx` (138 lines)
+
+**Files Modified:**
+- `src/components/workout/ExerciseCard.tsx` (added badges and guidance)
+- `src/components/workout/WorkoutForm.tsx` (added training method legend)
+
+**Visual Improvements:**
+- RPT: Purple badge with ⬇️ icon and weight reduction guidance
+- Kino: Blue badge with ⬆️ icon and weight progression guidance
+- Rest-Pause: Orange badge with ⏸️ icon
+- Intermediate RPT: Indigo badge with 2-min rest indicator
+- Training Method Legend: Collapsible guide showing all methods
 
 ---
 

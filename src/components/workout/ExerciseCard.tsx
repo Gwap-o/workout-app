@@ -15,6 +15,7 @@ import { ProgressionGuidance } from './ProgressionGuidance';
 import { InlineProgressionWarning } from './ProgressionWarning';
 import { checkProgressionGuardrails } from '@/lib/utils/progressionValidation';
 import type { GuardrailCheck } from '@/lib/utils/progressionValidation';
+import { TrainingMethodBadge } from './TrainingMethodBadge';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -241,9 +242,7 @@ export const ExerciseCard = ({
           <div className="flex-1">
             <div className="flex items-center gap-3">
               <h3 className="text-lg font-semibold text-[#202124] dark:text-[#E6EDF3]">{exercise.name}</h3>
-              <span className="text-sm text-[#5F6368] dark:text-[#8B949E] bg-[#F5F5F5] dark:bg-[#161B22] px-2 py-1 rounded">
-                {exercise.training_method}
-              </span>
+              <TrainingMethodBadge trainingMethod={exercise.training_method} />
             </div>
             <p className="text-sm text-[#5F6368] dark:text-[#8B949E] mt-1">
               {completedSets}/{numSets} sets completed
@@ -344,6 +343,39 @@ export const ExerciseCard = ({
             <h3 className="text-sm font-semibold text-[#202124] dark:text-[#E6EDF3]">Working Sets</h3>
             {sets.map((set, index) => (
               <div key={set.set_number}>
+                {/* RPT Weight Reduction Guidance */}
+                {exercise.training_method === 'RPT' && index > 0 && (
+                  <div className="mb-2 p-2 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded text-xs flex items-center justify-between">
+                    <span className="text-purple-700 dark:text-purple-300">
+                      ⬇️ RPT: Reduce weight by ~10% from previous set
+                    </span>
+                    {index === 1 && sets[0].weight > 0 && (
+                      <span className="font-medium text-purple-800 dark:text-purple-200">
+                        Suggested: {Math.round(sets[0].weight * 0.9)} lbs
+                      </span>
+                    )}
+                    {index === 2 && sets[1].weight > 0 && (
+                      <span className="font-medium text-purple-800 dark:text-purple-200">
+                        Suggested: {Math.round(sets[1].weight * 0.9)} lbs
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Kino Training Progression Guidance */}
+                {exercise.training_method === 'Kino' && index > 0 && (
+                  <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs flex items-center justify-between">
+                    <span className="text-blue-700 dark:text-blue-300">
+                      ⬆️ Kino: Increase weight from previous set
+                    </span>
+                    {sets[index - 1].weight > 0 && (
+                      <span className="font-medium text-blue-800 dark:text-blue-200">
+                        Previous: {sets[index - 1].weight} lbs
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 <SetInput
                   setNumber={set.set_number}
                   weight={set.weight}
