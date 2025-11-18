@@ -10,7 +10,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Chest',
     training_method: 'RPT',
     equipment: 'barbell',
-    rep_range: { min: 4, max: 6 },
+    rep_range: {
+      set1: { min: 4, max: 5 },
+      set2: { min: 6, max: 7 },
+      set3: { min: 8, max: 10 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [1, 2, 3],
@@ -26,7 +30,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Shoulders',
     training_method: 'RPT',
     equipment: 'barbell',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 8 },
+      set2: { min: 8, max: 10 },
+      set3: { min: 8, max: 10 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [1],
@@ -37,7 +45,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Back',
     training_method: 'RPT',
     equipment: 'bodyweight',
-    rep_range: { min: 4, max: 6 },
+    rep_range: {
+      set1: { min: 4, max: 4 },
+      set2: { min: 6, max: 6 },
+      set3: { min: 8, max: 8 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [1, 2, 3],
@@ -65,7 +77,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Triceps',
     training_method: 'RPT',
     equipment: 'bodyweight',
-    rep_range: { min: 4, max: 6 },
+    rep_range: {
+      set1: { min: 6, max: 6 },
+      set2: { min: 8, max: 8 },
+      set3: { min: 10, max: 10 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [1, 2, 3],
@@ -79,24 +95,24 @@ export const EXERCISES: Record<string, Exercise> = {
   'Bulgarian Split Squat': {
     name: 'Bulgarian Split Squat',
     muscle_group: 'Legs',
-    training_method: 'RPT',
+    training_method: 'Kino',
     equipment: 'dumbbell',
     rep_range: { min: 6, max: 8 },
-    weight_increment: 10,
-    rest_period: { min: 180, max: 240 },
-    phases: [1, 2],
+    weight_increment: 5, // 5 lbs per hand for Kino progression
+    rest_period: { min: 60, max: 90 }, // Kino rest periods
+    phases: [1],
     variations: ['Barbell Box Squat'],
   },
 
   'Barbell Box Squat': {
     name: 'Barbell Box Squat',
     muscle_group: 'Legs',
-    training_method: 'RPT',
+    training_method: 'Kino',
     equipment: 'barbell',
-    rep_range: { min: 4, max: 6 },
-    weight_increment: 10,
-    rest_period: { min: 180, max: 240 },
-    phases: [1, 2],
+    rep_range: { min: 6, max: 6 }, // Exactly 6 reps per set in Kino style
+    weight_increment: 5, // Kino progression
+    rest_period: { min: 120, max: 180 }, // 2-3 min for heavy leg work
+    phases: [2], // Phase 2 only: 5 sets × 6 reps Kino style
     variations: ['Bulgarian Split Squat'],
   },
 
@@ -107,7 +123,7 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'barbell',
     rep_range: { min: 8, max: 12 },
     weight_increment: 10,
-    rest_period: { min: 120, max: 180 },
+    rest_period: { min: 60, max: 90 },
     phases: [1, 2, 3],
   },
 
@@ -128,7 +144,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Chest',
     training_method: 'RPT',
     equipment: 'dumbbell',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 8 },
+      set2: { min: 8, max: 10 },
+      set3: { min: 10, max: 12 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [2],
@@ -139,7 +159,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Back',
     training_method: 'RPT',
     equipment: 'bodyweight',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 6 },
+      set2: { min: 8, max: 8 },
+      set3: { min: 8, max: 8 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [2],
@@ -150,7 +174,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Triceps',
     training_method: 'RPT',
     equipment: 'dumbbell',
-    rep_range: { min: 8, max: 10 },
+    rep_range: {
+      set1: { min: 8, max: 10 },
+      set2: { min: 10, max: 12 },
+      set3: { min: 12, max: 15 },
+    },
     weight_increment: 5,
     rest_period: { min: 120, max: 180 },
     phases: [2],
@@ -163,18 +191,18 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'dumbbell',
     rep_range: { min: 10, max: 15 },
     weight_increment: 5,
-    rest_period: { min: 90, max: 120 },
+    rest_period: { min: 60, max: 90 },
     phases: [2],
   },
 
   'Side-to-Side Knee Ups': {
     name: 'Side-to-Side Knee Ups',
     muscle_group: 'Core',
-    training_method: 'Kino',
+    training_method: 'StraightSets',
     equipment: 'bodyweight',
     rep_range: { min: 8, max: 12 },
     weight_increment: 0,
-    rest_period: { min: 90, max: 120 },
+    rest_period: { min: 60, max: 60 }, // 1 min rest per program
     phases: [2],
   },
 
@@ -185,7 +213,7 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'dumbbell',
     rep_range: { min: 8, max: 12 },
     weight_increment: 5,
-    rest_period: { min: 120, max: 180 },
+    rest_period: { min: 60, max: 90 },
     phases: [2],
     variations: ['Barbell Hip Thrusts'],
   },
@@ -197,7 +225,7 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'barbell',
     rep_range: { min: 8, max: 12 },
     weight_increment: 10,
-    rest_period: { min: 120, max: 180 },
+    rest_period: { min: 60, max: 90 },
     phases: [2],
     variations: ['Single-Leg Romanian Deadlifts'],
   },
@@ -218,7 +246,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Triceps',
     training_method: 'RPT',
     equipment: 'barbell',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 8 },
+      set2: { min: 8, max: 10 },
+      set3: { min: 10, max: 12 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [2],
@@ -231,7 +263,7 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'dumbbell',
     rep_range: { min: 8, max: 10 },
     weight_increment: 5,
-    rest_period: { min: 120, max: 180 },
+    rest_period: { min: 60, max: 90 },
     phases: [2],
   },
 
@@ -252,7 +284,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Shoulders',
     training_method: 'RPT',
     equipment: 'barbell',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 8 },
+      set2: { min: 8, max: 10 },
+      set3: { min: 8, max: 10 },
+    },
     weight_increment: 5,
     rest_period: { min: 180, max: 240 },
     phases: [3],
@@ -263,7 +299,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Triceps',
     training_method: 'RPT',
     equipment: 'cable',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 8 },
+      set2: { min: 8, max: 10 },
+      set3: { min: 10, max: 12 },
+    },
     weight_increment: 5,
     rest_period: { min: 120, max: 180 },
     phases: [3],
@@ -272,12 +312,12 @@ export const EXERCISES: Record<string, Exercise> = {
   'Hanging Knee Raises': {
     name: 'Hanging Knee Raises',
     muscle_group: 'Core',
-    training_method: 'Kino',
+    training_method: 'StraightSets',
     equipment: 'bodyweight',
     rep_range: { min: 8, max: 12 },
     weight_increment: 0,
-    rest_period: { min: 90, max: 120 },
-    phases: [3],
+    rest_period: { min: 60, max: 60 }, // 1 min rest between sets
+    phases: [1, 3],
   },
 
   'Incline Dumbbell Hammer Curls': {
@@ -285,7 +325,11 @@ export const EXERCISES: Record<string, Exercise> = {
     muscle_group: 'Biceps',
     training_method: 'RPT',
     equipment: 'dumbbell',
-    rep_range: { min: 6, max: 8 },
+    rep_range: {
+      set1: { min: 6, max: 8 },
+      set2: { min: 6, max: 8 },
+      set3: { min: 8, max: 10 },
+    },
     weight_increment: 5,
     rest_period: { min: 120, max: 180 },
     phases: [3],
@@ -298,7 +342,7 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'dumbbell',
     rep_range: { min: 6, max: 8 },
     weight_increment: 5,
-    rest_period: { min: 120, max: 180 },
+    rest_period: { min: 60, max: 90 },
     phases: [3],
   },
 
@@ -309,7 +353,7 @@ export const EXERCISES: Record<string, Exercise> = {
     equipment: 'dumbbell',
     rep_range: { min: 10, max: 12 },
     weight_increment: 5,
-    rest_period: { min: 120, max: 180 },
+    rest_period: { min: 60, max: 90 },
     phases: [3],
   },
 
@@ -428,6 +472,26 @@ export const getWorkoutExercises = (
   }
 };
 
+// Helper to get rep range for a specific set (for RPT exercises with per-set ranges)
+export const getRepRangeForSet = (
+  exercise: Exercise,
+  setNumber: number
+): { min: number; max: number } => {
+  const repRange = exercise.rep_range;
+
+  // Check if it's a per-set RPT range
+  if ('set1' in repRange) {
+    if (setNumber === 1) return repRange.set1;
+    if (setNumber === 2) return repRange.set2;
+    if (setNumber === 3) return repRange.set3;
+    // Default to set3 for any additional sets
+    return repRange.set3;
+  }
+
+  // Single range for all sets (Kino, RestPause, etc.)
+  return repRange;
+};
+
 // Helper to check if exercise is upper or lower body
 export const isLowerBody = (exerciseName: string): boolean => {
   const exercise = EXERCISES[exerciseName];
@@ -445,10 +509,29 @@ export const getSetsForMethod = (method: TrainingMethod): number => {
     case 'RPT':
       return 3;
     case 'Kino':
-      return 2;
+      return 4; // Program specifies 4-5 sets, using 4 as standard
     case 'RestPause':
       return 1; // Actually 3 mini-sets with 15s rest
+    case 'StraightSets':
+      return 3; // Standard 3 sets for straight set exercises
     default:
       return 3;
   }
+};
+
+// Helper to get rep range for non-RPT exercises (Kino, RestPause, StraightSets)
+export const getRepRange = (exercise: Exercise): { min: number; max: number } => {
+  if (exercise.training_method === 'RPT') {
+    // Check if it's the new RPT format with set1, set2, set3
+    const repRange = exercise.rep_range as any;
+    if (repRange.set1) {
+      // New format: return the first set's rep range
+      return repRange.set1;
+    } else {
+      // Old format (legacy exercises): has min/max directly
+      return repRange as { min: number; max: number };
+    }
+  }
+  // For Kino, RestPause, and StraightSets
+  return exercise.rep_range as { min: number; max: number };
 };

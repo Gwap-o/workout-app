@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Exercise, SetLog, TrainingMethod } from '@/types';
 import { useLastExerciseLog } from '@/lib/hooks/useExerciseHistory';
 import { calculateRPTSets } from '@/lib/progression/rpt';
-import { getSetsForMethod } from '@/lib/constants/exercises';
+import { getSetsForMethod, getRepRange } from '@/lib/constants/exercises';
 import { SetInput } from './SetInput';
 import { ProgressionIndicator } from './ProgressionIndicator';
 import { RestTimer } from './RestTimer';
@@ -85,11 +85,35 @@ export const ExerciseCard = ({
     // Initialize empty working sets
     const initialSets: SetLog[] = [];
     for (let i = 1; i <= numSets; i++) {
+      // For RPT, use set-specific rep ranges (set1, set2, set3)
+      let targetReps: string;
+      if (exercise.training_method === 'RPT') {
+        const setKey = `set${i}` as 'set1' | 'set2' | 'set3';
+        const repRangeAny = exercise.rep_range as any;
+        const repRange = repRangeAny[setKey];
+
+        if (repRange) {
+          // New RPT format with set1, set2, set3
+          targetReps = repRange.min === repRange.max
+            ? `${repRange.min}`
+            : `${repRange.min}-${repRange.max}`;
+        } else if (repRangeAny.min !== undefined && repRangeAny.max !== undefined) {
+          // Legacy RPT format with direct min/max - use same range for all sets
+          targetReps = `${repRangeAny.min}-${repRangeAny.max}`;
+        } else {
+          targetReps = '0';
+        }
+      } else {
+        // For Kino, RestPause, and StraightSets, use general rep range
+        const repRange = exercise.rep_range as { min: number; max: number };
+        targetReps = `${repRange.min}-${repRange.max}`;
+      }
+
       initialSets.push({
         set_number: i,
         weight: 0,
         reps: 0,
-        target_reps: `${exercise.rep_range.min}-${exercise.rep_range.max}`,
+        target_reps: targetReps,
         completed: false,
         is_warmup: false,
       });
@@ -380,7 +404,7 @@ export const ExerciseCard = ({
                   setNumber={set.set_number}
                   weight={set.weight}
                   reps={set.reps}
-                  targetReps={set.target_reps || `${exercise.rep_range.min}-${exercise.rep_range.max}`}
+                  targetReps={set.target_reps || '0'}
                   onUpdate={handleSetUpdate}
                   disabled={
                     exercise.training_method === 'RPT' &&
@@ -462,7 +486,10 @@ export const ExerciseCard = ({
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <span className="font-medium">Target Reps:</span>{' '}
-                {exercise.rep_range.min}-{exercise.rep_range.max}
+                {(() => {
+                  const repRange = getRepRange(exercise);
+                  return `${repRange.min}-${repRange.max}`;
+                })()}
               </div>
               <div>
                 <span className="font-medium">Rest:</span>{' '}

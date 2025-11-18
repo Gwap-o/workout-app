@@ -1,5 +1,6 @@
 import type { ExerciseLog, ExpectedPerformance, Exercise } from '@/types';
 import { useExercisePlateauDetection } from '@/lib/hooks/useExerciseHistory';
+import { getRepRange } from '@/lib/constants/exercises';
 
 interface ProgressionIndicatorProps {
   lastLog: ExerciseLog | null;
@@ -15,14 +16,15 @@ export const ProgressionIndicator = ({
   const { plateauAnalysis } = useExercisePlateauDetection(exercise.name);
 
   if (!lastLog) {
+    const repRange = getRepRange(exercise);
     return (
       <div className="bg-[#20808D]/10 dark:bg-[#1FB8CD]/10 border border-[#20808D] dark:border-[#1FB8CD] rounded p-3">
         <p className="text-sm text-[#20808D] dark:text-[#1FB8CD] font-medium">
           First time logging this exercise
         </p>
         <p className="text-xs text-[#5F6368] dark:text-[#8B949E] mt-1">
-          Start with a weight you can handle for {exercise.rep_range.min}-
-          {exercise.rep_range.max} reps with good form
+          Start with a weight you can handle for {repRange.min}-
+          {repRange.max} reps with good form
         </p>
       </div>
     );

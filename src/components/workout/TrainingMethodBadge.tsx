@@ -27,6 +27,13 @@ const TRAINING_METHOD_INFO = {
     icon: '⏸️',
     description: '1 heavy set + 3 mini-sets with 10-15 second rests',
   },
+  StraightSets: {
+    label: 'Straight Sets',
+    fullName: 'Straight Sets',
+    color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700',
+    icon: '➡️',
+    description: 'Straight Sets: Same weight and reps for all sets',
+  },
   'Intermediate RPT': {
     label: 'RPT (2min)',
     fullName: 'Intermediate RPT',

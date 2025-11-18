@@ -9,7 +9,7 @@ export type WorkoutDay =
   | 'Saturday'
   | 'Sunday';
 
-export type TrainingMethod = 'RPT' | 'Kino' | 'RestPause';
+export type TrainingMethod = 'RPT' | 'Kino' | 'RestPause' | 'StraightSets';
 
 export type MuscleGroup =
   | 'Chest'
@@ -227,9 +227,15 @@ export interface Exercise {
   equipment: 'barbell' | 'dumbbell' | 'bodyweight' | 'cable';
 
   // Rep Ranges
+  // For RPT: can specify per-set ranges [set1, set2, set3]
+  // For other methods: single range applies to all sets
   rep_range: {
     min: number;
     max: number;
+  } | {
+    set1: { min: number; max: number };
+    set2: { min: number; max: number };
+    set3: { min: number; max: number };
   };
 
   // Progression

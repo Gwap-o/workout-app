@@ -1,4 +1,5 @@
 import type { Exercise, SetLog } from '@/types';
+import { getRepRange } from '@/lib/constants/exercises';
 
 /**
  * Equipment-Specific Progression Rules
@@ -30,20 +31,21 @@ export const calculateBarbellProgression = (
   lastSet: SetLog
 ): ProgressionResult => {
   const { weight, reps } = lastSet;
-  const { rep_range, weight_increment } = exercise;
+  const { weight_increment } = exercise;
+  const repRange = getRepRange(exercise);
 
   // Hit top of rep range - add weight
-  if (reps >= rep_range.max) {
+  if (reps >= repRange.max) {
     return {
       nextWeight: weight + weight_increment,
-      nextReps: rep_range.min,
+      nextReps: repRange.min,
       progressionType: 'weight',
-      message: `Add ${weight_increment} lbs, drop to ${rep_range.min} reps`,
+      message: `Add ${weight_increment} lbs, drop to ${repRange.min} reps`,
     };
   }
 
   // Within range - increase reps
-  if (reps >= rep_range.min && reps < rep_range.max) {
+  if (reps >= repRange.min && reps < repRange.max) {
     return {
       nextWeight: weight,
       nextReps: reps + 1,
@@ -55,9 +57,9 @@ export const calculateBarbellProgression = (
   // Below range - maintain and try to hit min reps
   return {
     nextWeight: weight,
-    nextReps: rep_range.min,
+    nextReps: repRange.min,
     progressionType: 'maintain',
-    message: `Same weight, aim for at least ${rep_range.min} reps`,
+    message: `Same weight, aim for at least ${repRange.min} reps`,
   };
 };
 
@@ -72,33 +74,34 @@ export const calculateDumbbellProgression = (
   lastSet: SetLog
 ): ProgressionResult => {
   const { weight, reps } = lastSet;
-  const { rep_range, weight_increment } = exercise;
+  const repRange = getRepRange(exercise);
+  const { weight_increment } = exercise;
 
   // Dumbbell increment is typically 5 lbs per hand
   const dumbbellIncrement = weight_increment; // Already set correctly in exercise definitions
 
   // Hit top of rep range solidly (max + 1 for dumbbells to ensure readiness)
-  if (reps > rep_range.max) {
+  if (reps > repRange.max) {
     return {
       nextWeight: weight + dumbbellIncrement,
-      nextReps: rep_range.min,
+      nextReps: repRange.min,
       progressionType: 'weight',
-      message: `Add ${dumbbellIncrement} lbs per hand, drop to ${rep_range.min} reps`,
+      message: `Add ${dumbbellIncrement} lbs per hand, drop to ${repRange.min} reps`,
     };
   }
 
   // At top of range - try to exceed before adding weight
-  if (reps === rep_range.max) {
+  if (reps === repRange.max) {
     return {
       nextWeight: weight,
-      nextReps: rep_range.max + 1,
+      nextReps: repRange.max + 1,
       progressionType: 'reps',
-      message: `Same weight, try to exceed ${rep_range.max} reps before adding weight`,
+      message: `Same weight, try to exceed ${repRange.max} reps before adding weight`,
     };
   }
 
   // Within range - increase reps
-  if (reps >= rep_range.min && reps < rep_range.max) {
+  if (reps >= repRange.min && reps < repRange.max) {
     return {
       nextWeight: weight,
       nextReps: reps + 1,
@@ -110,9 +113,9 @@ export const calculateDumbbellProgression = (
   // Below range
   return {
     nextWeight: weight,
-    nextReps: rep_range.min,
+    nextReps: repRange.min,
     progressionType: 'maintain',
-    message: `Same weight, build up to ${rep_range.min} reps`,
+    message: `Same weight, build up to ${repRange.min} reps`,
   };
 };
 
@@ -127,24 +130,24 @@ export const calculateBodyweightProgression = (
   lastSet: SetLog
 ): ProgressionResult => {
   const { weight, reps } = lastSet;
-  const { rep_range } = exercise;
+  const repRange = getRepRange(exercise);
 
   // Closed-chain exercises use 2.5 lb increments (microplates)
   const closedChainIncrement = 2.5;
 
   // Hit target reps - add 2.5 lbs
-  if (reps >= rep_range.max) {
+  if (reps >= repRange.max) {
     return {
       nextWeight: weight + closedChainIncrement,
-      nextReps: rep_range.min,
+      nextReps: repRange.min,
       progressionType: 'weight',
-      message: `Add ${closedChainIncrement} lbs, aim for ${rep_range.min}-${rep_range.max} reps`,
+      message: `Add ${closedChainIncrement} lbs, aim for ${repRange.min}-${repRange.max} reps`,
       microplatesRecommended: true,
     };
   }
 
   // Within range - increase reps
-  if (reps >= rep_range.min && reps < rep_range.max) {
+  if (reps >= repRange.min && reps < repRange.max) {
     return {
       nextWeight: weight,
       nextReps: reps + 1,
@@ -156,9 +159,9 @@ export const calculateBodyweightProgression = (
   // Below range
   return {
     nextWeight: weight,
-    nextReps: rep_range.min,
+    nextReps: repRange.min,
     progressionType: 'maintain',
-    message: `Same weight, work up to ${rep_range.min} reps`,
+    message: `Same weight, work up to ${repRange.min} reps`,
   };
 };
 
@@ -173,23 +176,24 @@ export const calculateCableProgression = (
   lastSet: SetLog
 ): ProgressionResult => {
   const { weight, reps } = lastSet;
-  const { rep_range, weight_increment } = exercise;
+  const repRange = getRepRange(exercise);
+  const { weight_increment } = exercise;
 
   // Cable machines typically use 5-10 lb increments
   const cableIncrement = weight_increment;
 
   // Hit top of rep range
-  if (reps >= rep_range.max) {
+  if (reps >= repRange.max) {
     return {
       nextWeight: weight + cableIncrement,
-      nextReps: rep_range.min,
+      nextReps: repRange.min,
       progressionType: 'weight',
-      message: `Increase to next cable setting (+${cableIncrement} lbs), drop to ${rep_range.min} reps`,
+      message: `Increase to next cable setting (+${cableIncrement} lbs), drop to ${repRange.min} reps`,
     };
   }
 
   // Within range
-  if (reps >= rep_range.min && reps < rep_range.max) {
+  if (reps >= repRange.min && reps < repRange.max) {
     return {
       nextWeight: weight,
       nextReps: reps + 1,
@@ -201,9 +205,9 @@ export const calculateCableProgression = (
   // Below range
   return {
     nextWeight: weight,
-    nextReps: rep_range.min,
+    nextReps: repRange.min,
     progressionType: 'maintain',
-    message: `Same cable setting, aim for ${rep_range.min} reps`,
+    message: `Same cable setting, aim for ${repRange.min} reps`,
   };
 };
 

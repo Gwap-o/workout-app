@@ -1,5 +1,5 @@
 import type { ExerciseLog, ExpectedPerformance, SetLog } from '@/types';
-import { getWeightIncrement, EXERCISES } from '@/lib/constants/exercises';
+import { getWeightIncrement, EXERCISES, getRepRange } from '@/lib/constants/exercises';
 
 /**
  * Double Progression Model
@@ -28,7 +28,8 @@ export const calculateNextWorkout = (
   }
 
   const topSet = lastLog.sets[0]; // First set (heaviest in RPT)
-  const { min: bottomRange, max: topRange } = exercise.rep_range;
+  const repRange = getRepRange(exercise);
+  const { min: bottomRange, max: topRange } = repRange;
 
   // Check if hit top of rep range
   if (topSet.reps >= topRange) {
@@ -64,7 +65,8 @@ export const calculateProgression = (
     };
   }
 
-  const { min: bottomRange, max: topRange } = exercise.rep_range;
+  const repRange = getRepRange(exercise);
+  const { min: bottomRange, max: topRange } = repRange;
   const increment = getWeightIncrement(exerciseName);
 
   if (currentReps >= topRange) {
