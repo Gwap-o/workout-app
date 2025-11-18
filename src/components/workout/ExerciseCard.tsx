@@ -343,36 +343,21 @@ export const ExerciseCard = ({
             <h3 className="text-sm font-semibold text-[#202124] dark:text-[#E6EDF3]">Working Sets</h3>
             {sets.map((set, index) => (
               <div key={set.set_number}>
-                {/* RPT Weight Reduction Guidance */}
+                {/* RPT Weight Reduction Guidance - Simplified */}
                 {exercise.training_method === 'RPT' && index > 0 && (
-                  <div className="mb-2 p-2 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded text-xs flex items-center justify-between">
+                  <div className="mb-2 p-2 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded text-xs">
                     <span className="text-purple-700 dark:text-purple-300">
                       ⬇️ RPT: Reduce weight by ~10% from previous set
                     </span>
-                    {index === 1 && sets[0].weight > 0 && (
-                      <span className="font-medium text-purple-800 dark:text-purple-200">
-                        Suggested: {Math.round(sets[0].weight * 0.9)} lbs
-                      </span>
-                    )}
-                    {index === 2 && sets[1].weight > 0 && (
-                      <span className="font-medium text-purple-800 dark:text-purple-200">
-                        Suggested: {Math.round(sets[1].weight * 0.9)} lbs
-                      </span>
-                    )}
                   </div>
                 )}
 
-                {/* Kino Training Progression Guidance */}
+                {/* Kino Training Progression Guidance - Simplified */}
                 {exercise.training_method === 'Kino' && index > 0 && (
-                  <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs flex items-center justify-between">
+                  <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs">
                     <span className="text-blue-700 dark:text-blue-300">
                       ⬆️ Kino: Increase weight from previous set
                     </span>
-                    {sets[index - 1].weight > 0 && (
-                      <span className="font-medium text-blue-800 dark:text-blue-200">
-                        Previous: {sets[index - 1].weight} lbs
-                      </span>
-                    )}
                   </div>
                 )}
 
@@ -389,39 +374,21 @@ export const ExerciseCard = ({
                   }
                 />
 
-                {/* Rest comparison after completing rest */}
+                {/* Rest comparison after completing rest - Simplified */}
                 {completedRestTimes[index] && index < numSets - 1 && (
-                  <div className={`mt-2 p-3 rounded-lg border text-sm ${
-                    Math.abs(completedRestTimes[index] - getRecommendedRestSeconds(exercise.training_method)) <= 10
-                      ? 'bg-green-50 dark:bg-green-900/20 border-green-400 dark:border-green-600 text-green-700 dark:text-green-300'
-                      : completedRestTimes[index] < getRecommendedRestSeconds(exercise.training_method) - 10
-                      ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-400 dark:border-yellow-600 text-yellow-700 dark:text-yellow-300'
-                      : 'bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-300'
-                  }`}>
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">Rest completed:</span>
-                      <span>{Math.floor(completedRestTimes[index] / 60)}:{(completedRestTimes[index] % 60).toString().padStart(2, '0')}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs mt-1">
-                      <span>Recommended:</span>
-                      <span>{Math.floor(getRecommendedRestSeconds(exercise.training_method) / 60)}:{(getRecommendedRestSeconds(exercise.training_method) % 60).toString().padStart(2, '0')}</span>
-                    </div>
+                  <div className="mt-2 p-2 rounded border bg-gray-50 dark:bg-gray-900/20 border-gray-300 dark:border-gray-600 text-xs text-center text-gray-700 dark:text-gray-300">
+                    Rest: {Math.floor(completedRestTimes[index] / 60)}:{(completedRestTimes[index] % 60).toString().padStart(2, '0')}
                   </div>
                 )}
 
                 {/* Rest Timer - Manual start button or active timer */}
                 {set.completed && index < numSets - 1 && activeTimerSetIndex !== index && !completedRestTimes[index] && (
-                  <div className="mt-2 space-y-2">
-                    {/* Recommended rest display */}
-                    <div className="text-sm text-[#5F6368] dark:text-[#8B949E] text-center">
-                      Recommended rest: {Math.floor(getRecommendedRestSeconds(exercise.training_method) / 60)}:{(getRecommendedRestSeconds(exercise.training_method) % 60).toString().padStart(2, '0')}
-                    </div>
-
+                  <div className="mt-2">
                     <button
                       onClick={() => setActiveTimerSetIndex(index)}
                       className="w-full px-4 py-2 bg-[#20808D] dark:bg-[#1FB8CD] text-white rounded-lg hover:bg-[#1A6B76] dark:hover:bg-[#2DD4E8] transition-colors font-medium text-sm"
                     >
-                      ⏱️ Start Rest Timer
+                      ⏱️ Start Rest Timer ({Math.floor(getRecommendedRestSeconds(exercise.training_method) / 60)}:{(getRecommendedRestSeconds(exercise.training_method) % 60).toString().padStart(2, '0')})
                     </button>
                   </div>
                 )}
@@ -457,27 +424,13 @@ export const ExerciseCard = ({
             />
           </div>
 
-          {/* Exercise Info */}
-          <div className="text-xs text-[#5F6368] dark:text-[#8B949E] bg-[#F5F5F5] dark:bg-[#161B22] p-3 rounded border border-[#E8EAED] dark:border-[#30363D]">
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <span className="font-medium">Target Reps:</span>{' '}
-                {exercise.rep_range.min}-{exercise.rep_range.max}
-              </div>
-              <div>
-                <span className="font-medium">Rest:</span>{' '}
-                {exercise.rest_period.min / 60}-{exercise.rest_period.max / 60}{' '}
-                min
-              </div>
-              <div>
-                <span className="font-medium">Increment:</span> +
-                {exercise.weight_increment} lbs
-              </div>
-              <div>
-                <span className="font-medium">Muscle:</span>{' '}
-                {exercise.muscle_group}
-              </div>
-            </div>
+          {/* Exercise Info - Simplified */}
+          <div className="text-xs text-[#5F6368] dark:text-[#8B949E] flex items-center gap-4 flex-wrap">
+            <div>Target: {exercise.rep_range.min}-{exercise.rep_range.max} reps</div>
+            <div>•</div>
+            <div>+{exercise.weight_increment} lbs</div>
+            <div>•</div>
+            <div>{exercise.muscle_group}</div>
           </div>
         </div>
       )}
