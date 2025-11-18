@@ -33,7 +33,7 @@ export function Layout({ children }: LayoutProps) {
         <header className="bg-[#FCFCF9] dark:bg-[#0D1117] border-b border-[#E8EAED] dark:border-[#30363D] px-4 sm:px-6 lg:px-8 h-16 sticky top-0 z-10 flex items-center justify-between">
           {/* Mobile: Show logo, Desktop: Show breadcrumbs */}
           <div className="lg:hidden">
-            <Link to="/">
+            <Link to="/workout">
               <DunamisLogo size="sm" showText />
             </Link>
           </div>

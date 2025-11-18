@@ -39,6 +39,8 @@ export interface UserProfile {
   current_phase: 1 | 2 | 3;
   current_week: number;
   program_start_date: string;
+  training_mode?: 'standard' | 'mega'; // MEGA Training (12-week program)
+  active_specialization?: 'chest' | 'shoulder' | 'triceps' | 'back' | 'biceps' | 'legs' | null; // Specialization routine
 
   // Goals & Preferences
   goal_type: 'leanBulk' | 'recomp';
@@ -88,6 +90,7 @@ export interface SetLog {
   rest_time?: number;
   completed: boolean;
   rpe?: number;
+  is_warmup?: boolean;
 }
 
 // Expected Performance
@@ -246,6 +249,11 @@ export interface Exercise {
 
   // Standards
   fitness_standards?: FitnessStandards;
+
+  // Form & Safety
+  form_cues?: string[];
+  video_url?: string;
+  safety_notes?: string;
 }
 
 export interface FitnessStandards {
@@ -299,4 +307,22 @@ export interface PhaseProgress {
   canRotate: boolean;
   nextPhase: 1 | 2 | 3;
   programStartDate: string;
+}
+
+// Deload Week Types
+export interface DeloadWeek {
+  id: string;
+  user_id: string;
+  start_date: string;
+  end_date: string;
+  reason: 'plateau' | 'scheduled' | 'manual';
+  weight_reduction_percentage: number;
+  created_at: string;
+}
+
+export interface DeloadRecommendation {
+  shouldDeload: boolean;
+  reason: string;
+  weeksSinceLastDeload?: number;
+  recommendedReduction: number;
 }

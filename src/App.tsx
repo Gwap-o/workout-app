@@ -8,7 +8,7 @@ import { WorkoutHistory } from './pages/WorkoutHistory'
 import { Nutrition } from './pages/Nutrition'
 import { Settings } from './pages/Settings'
 import { Program } from './pages/Program'
-import Progress from './pages/Progress'
+import { IndicatorDashboard } from './pages/IndicatorDashboard'
 import { Toaster } from 'sonner'
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Progress />
+                <WorkoutLogger />
               </ProtectedRoute>
             }
           />
@@ -52,18 +52,18 @@ function App() {
             }
           />
           <Route
-            path="/progress"
-            element={
-              <ProtectedRoute>
-                <Progress />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/program"
             element={
               <ProtectedRoute>
                 <Program />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/indicators"
+            element={
+              <ProtectedRoute>
+                <IndicatorDashboard />
               </ProtectedRoute>
             }
           />

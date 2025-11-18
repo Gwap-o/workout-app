@@ -44,7 +44,15 @@
       "WebFetch(domain:supabase.com)",
       "Bash(npm uninstall:*)",
       "Bash(node createProgramData.js:*)",
-      "mcp__supabase__search_docs"
+      "mcp__supabase__search_docs",
+      "Bash(del \"C:\\Users\\Danny\\Desktop\\Claude\\workout-app\\src\\pages\\Progress.tsx\")",
+      "Bash(rm:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(echo:*)",
+      "Bash(timeout:*)",
+      "mcp__playwright__playwright_get_visible_text",
+      "mcp__playwright__playwright_fill"
     ],
     "deny": [],
     "ask": []

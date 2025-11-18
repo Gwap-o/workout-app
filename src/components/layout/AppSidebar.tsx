@@ -11,7 +11,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { getUserProfile } from '@/lib/supabase/userProfile';
 import type { UserProfile } from '@/types';
 import {
-  Home,
   Dumbbell,
   TrendingUp,
   Utensils,
@@ -19,18 +18,19 @@ import {
   Settings,
   User,
   LogOut,
+  Target,
 } from 'lucide-react';
 
 interface NavItem {
   to: string;
-  icon: typeof Home;
+  icon: typeof Dumbbell;
   label: string;
 }
 
 const navItems: NavItem[] = [
-  { to: '/', icon: Home, label: 'Dashboard' },
   { to: '/workout', icon: Dumbbell, label: 'Log Workout' },
   { to: '/history', icon: TrendingUp, label: 'History' },
+  { to: '/indicators', icon: Target, label: 'Indicators' },
   { to: '/nutrition', icon: Utensils, label: 'Nutrition' },
   { to: '/program', icon: BookOpen, label: 'Program' },
 ];
@@ -52,7 +52,7 @@ export function AppSidebar({ collapsed = false }: AppSidebarProps) {
   }, [user?.id]);
 
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
+    if (path === '/workout') return location.pathname === '/' || location.pathname === '/workout';
     return location.pathname.startsWith(path);
   };
 
@@ -65,7 +65,7 @@ export function AppSidebar({ collapsed = false }: AppSidebarProps) {
       }`}
     >
       {/* Header */}
-      <Link to="/" className={`px-3 py-4 h-16 border-b border-[#E8EAED] dark:border-[#30363D] flex items-center ${collapsed ? 'justify-center' : ''}`}>
+      <Link to="/workout" className={`px-3 py-4 h-16 border-b border-[#E8EAED] dark:border-[#30363D] flex items-center ${collapsed ? 'justify-center' : ''}`}>
         <DunamisLogo size="md" showText={!collapsed} />
       </Link>
 

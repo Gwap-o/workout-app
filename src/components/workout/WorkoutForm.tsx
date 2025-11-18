@@ -6,6 +6,10 @@ import { createWorkoutSession } from '@/lib/supabase/workouts';
 import { createExerciseLogs } from '@/lib/supabase/exercises';
 import { ExerciseCard } from './ExerciseCard';
 import { Input } from '@/components/ui/input';
+import { DeloadWeekBanner } from './DeloadWeekBanner';
+import { useDeload } from '@/lib/hooks/useDeload';
+import { ScheduleValidator } from './ScheduleValidator';
+import { useWorkouts } from '@/lib/hooks/useWorkouts';
 
 interface WorkoutFormProps {
   profile: UserProfile;
@@ -21,7 +25,23 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
 
-  const exercises = getWorkoutExercises(profile.current_phase, workoutType);
+  // Deload tracking
+  const {
+    isDeloadActive,
+    reductionPercentage,
+    endDeload,
+  } = useDeload();
+
+  // Workout history for schedule validation
+  const { workouts } = useWorkouts(1); // Get most recent workout
+  const lastWorkoutDate = workouts.length > 0 ? workouts[0].date : undefined;
+
+  const exercises = getWorkoutExercises(
+    profile.current_phase,
+    workoutType,
+    profile.training_mode || 'standard',
+    profile.active_specialization || null
+  );
 
   const handleExerciseUpdate = (
     exerciseName: string,
@@ -150,14 +170,36 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
         </div>
       </div>
 
+      {/* Schedule Validation */}
+      <ScheduleValidator
+        workoutDate={new Date(date)}
+        schedule={profile.workout_schedule}
+        lastWorkoutDate={lastWorkoutDate}
+      />
+
+      {/* Deload Week Banner */}
+      <DeloadWeekBanner
+        isDeloadWeek={isDeloadActive}
+        reductionPercentage={reductionPercentage}
+        onEndDeload={async () => {
+          const success = await endDeload();
+          if (success) {
+            alert('Deload week ended successfully! Resume normal training.');
+          }
+        }}
+      />
+
       {/* Exercise List */}
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-[#202124] dark:text-[#E6EDF3]">Exercises</h2>
-        {exercises.map((exercise) => (
+        {exercises.map((exercise, index) => (
           <ExerciseCard
             key={exercise.name}
             exercise={exercise}
+            exerciseIndex={index}
             onUpdate={handleExerciseUpdate}
+            isDeloadWeek={isDeloadActive}
+            deloadReductionPercentage={reductionPercentage}
           />
         ))}
       </div>

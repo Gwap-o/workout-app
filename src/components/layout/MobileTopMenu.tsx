@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-  Home,
   Dumbbell,
   TrendingUp,
   Utensils,
@@ -16,7 +15,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const navItems = [
-  { to: '/', icon: Home, label: 'Dashboard' },
   { to: '/workout', icon: Dumbbell, label: 'Log Workout' },
   { to: '/history', icon: TrendingUp, label: 'History' },
   { to: '/nutrition', icon: Utensils, label: 'Nutrition' },
@@ -30,7 +28,7 @@ export function MobileTopMenu() {
   const { user, signOut } = useAuth();
 
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
+    if (path === '/workout') return location.pathname === '/' || location.pathname === '/workout';
     return location.pathname.startsWith(path);
   };
 

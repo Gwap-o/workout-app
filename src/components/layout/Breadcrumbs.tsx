@@ -2,10 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
 const routeNames: Record<string, string> = {
-  '': 'Dashboard',
+  '': 'Log Workout',
   'workout': 'Log Workout',
   'history': 'Workout History',
   'nutrition': 'Nutrition',
+  'program': 'Program',
   'settings': 'Settings',
 };
 
@@ -49,14 +50,14 @@ export function Breadcrumbs({ onToggleSidebar }: BreadcrumbsProps) {
       {/* Breadcrumbs */}
       <nav className="flex items-center space-x-3 text-sm ml-1">
         {pathnames.length === 0 ? (
-          <span className="font-medium text-[#202124] dark:text-[#E6EDF3]">Dashboard</span>
+          <span className="font-medium text-[#202124] dark:text-[#E6EDF3]">Log Workout</span>
         ) : (
           <>
             <Link
-              to="/"
+              to="/workout"
               className="text-[#5F6368] hover:text-[#202124] dark:text-[#8B949E] dark:hover:text-[#E6EDF3]"
             >
-              Dashboard
+              Log Workout
             </Link>
 
             {pathnames.map((segment, index) => {
