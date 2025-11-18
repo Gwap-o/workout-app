@@ -19,6 +19,7 @@ import {
   User,
   LogOut,
   Target,
+  Library,
 } from 'lucide-react';
 
 interface NavItem {
@@ -31,6 +32,7 @@ const navItems: NavItem[] = [
   { to: '/workout', icon: Dumbbell, label: 'Log Workout' },
   { to: '/history', icon: TrendingUp, label: 'History' },
   { to: '/indicators', icon: Target, label: 'Indicators' },
+  { to: '/exercises', icon: Library, label: 'Exercises' },
   { to: '/nutrition', icon: Utensils, label: 'Nutrition' },
   { to: '/program', icon: BookOpen, label: 'Program' },
 ];
