@@ -254,7 +254,6 @@ export const ExerciseCard = ({
   };
 
   const completedSets = sets.filter((s) => s.completed).length;
-  const allSetsCompleted = completedSets === numSets;
 
   return (
     <div className="bg-white dark:bg-[#1C2128] rounded-lg shadow border border-[#E8EAED] dark:border-[#30363D]">
