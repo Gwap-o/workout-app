@@ -82,7 +82,7 @@ export const FormCueDisplay = ({ exerciseName, showFormCues }: FormCueDisplayPro
 
           <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-800">
             <p className="text-xs text-blue-700 dark:text-blue-300 italic">
-              💡 Review form cues before your first set for best results
+              Review form cues before your first set for best results
             </p>
           </div>
         </div>

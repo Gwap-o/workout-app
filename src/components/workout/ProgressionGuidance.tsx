@@ -5,6 +5,7 @@ import {
   getProgressionGuidance,
   shouldRecommendMicroplates,
 } from '@/lib/progression/equipmentProgressionRules';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 
 interface ProgressionGuidanceProps {
   exercise: Exercise;
@@ -42,15 +43,17 @@ export const ProgressionGuidance = ({ exercise, lastSet }: ProgressionGuidancePr
             />
           </svg>
           <span className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">
-            {exercise.equipment === 'barbell' && '⚡ Barbell Progression'}
-            {exercise.equipment === 'dumbbell' && '💪 Dumbbell Progression'}
-            {exercise.equipment === 'bodyweight' && '🏋️ Bodyweight Progression'}
-            {exercise.equipment === 'cable' && '🔗 Cable Progression'}
+            {exercise.equipment === 'barbell' && 'Barbell Progression'}
+            {exercise.equipment === 'dumbbell' && 'Dumbbell Progression'}
+            {exercise.equipment === 'bodyweight' && 'Bodyweight Progression'}
+            {exercise.equipment === 'cable' && 'Cable Progression'}
           </span>
         </div>
-        <span className="text-indigo-600 dark:text-indigo-400 text-xs">
-          {isExpanded ? '▼' : '▶'}
-        </span>
+        {isExpanded ? (
+          <ChevronDown className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+        ) : (
+          <ChevronRight className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+        )}
       </button>
 
       {/* Expanded Content */}
@@ -60,7 +63,7 @@ export const ProgressionGuidance = ({ exercise, lastSet }: ProgressionGuidancePr
           {nextTarget && (
             <div className="p-3 bg-white dark:bg-indigo-950/40 rounded border border-indigo-300 dark:border-indigo-700">
               <h4 className="text-sm font-semibold text-indigo-900 dark:text-indigo-100 mb-2">
-                📊 Next Workout Target
+                Next Workout Target
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -99,7 +102,7 @@ export const ProgressionGuidance = ({ exercise, lastSet }: ProgressionGuidancePr
           {/* Progression Strategy */}
           <div>
             <h4 className="text-sm font-semibold text-indigo-900 dark:text-indigo-100 mb-2">
-              📈 Progression Strategy
+              Progression Strategy
             </h4>
             <ul className="space-y-1.5">
               {guidance.map((tip, index) => (
@@ -142,18 +145,15 @@ export const ProgressionGuidance = ({ exercise, lastSet }: ProgressionGuidancePr
           {/* Microplate Recommendation */}
           {needsMicroplates && (
             <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-300 dark:border-yellow-700">
-              <div className="flex items-start gap-2">
-                <span className="text-lg">⚖️</span>
-                <div>
-                  <h4 className="text-sm font-semibold text-yellow-900 dark:text-yellow-100">
-                    Microplates Recommended
-                  </h4>
-                  <p className="text-xs text-yellow-800 dark:text-yellow-200 mt-1">
-                    {exercise.equipment === 'bodyweight'
-                      ? 'Use 1.25 lb plates (2.5 lbs total) for gradual bodyweight progression'
-                      : 'Consider 2.5 lb dumbbells or fractional plates for smaller jumps'}
-                  </p>
-                </div>
+              <div>
+                <h4 className="text-sm font-semibold text-yellow-900 dark:text-yellow-100">
+                  Microplates Recommended
+                </h4>
+                <p className="text-xs text-yellow-800 dark:text-yellow-200 mt-1">
+                  {exercise.equipment === 'bodyweight'
+                    ? 'Use 1.25 lb plates (2.5 lbs total) for gradual bodyweight progression'
+                    : 'Consider 2.5 lb dumbbells or fractional plates for smaller jumps'}
+                </p>
               </div>
             </div>
           )}

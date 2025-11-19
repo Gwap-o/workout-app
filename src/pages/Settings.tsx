@@ -1,6 +1,6 @@
 // Settings Page
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,6 +19,8 @@ import { toast } from 'sonner'
 
 export function Settings() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const phaseRef = useRef<HTMLElement>(null)
   const { settings, updateSingleSetting, cycleUnits, loading: settingsLoading } = useSettings()
   const { profile, recalculateNutrition, loading: nutritionLoading } = useNutrition()
   const { progress, setPhase, resetProgram, loading: phaseLoading } = usePhaseRotation()
@@ -58,6 +60,16 @@ export function Settings() {
       goalType !== (profile?.goal_type || 'leanBulk')
     setHasChanges(changed)
   }, [fullName, birthday, bodyweight, goalBodyweight, height, goalType, profile])
+
+  // Scroll to section if query parameter is present
+  useEffect(() => {
+    const section = searchParams.get('section')
+    if (section === 'phase' && phaseRef.current) {
+      setTimeout(() => {
+        phaseRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 100)
+    }
+  }, [searchParams])
 
   async function handleSaveProfile() {
     console.log('=== SAVE PROFILE START ===')
@@ -420,7 +432,7 @@ export function Settings() {
         </section>
 
         {/* Training Program Section */}
-        <section>
+        <section ref={phaseRef}>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-[#20808D]/10 dark:bg-[#1FB8CD]/10 flex items-center justify-center">
               <Dumbbell className="w-5 h-5 text-[#20808D] dark:text-[#1FB8CD]" />

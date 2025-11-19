@@ -9,35 +9,35 @@ const TRAINING_METHOD_INFO = {
   RPT: {
     label: 'RPT',
     fullName: 'Reverse Pyramid Training',
-    color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-700',
+    color: 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300',
     icon: '⬇️',
     description: 'Reverse Pyramid: Start heavy, reduce weight 10% each set',
   },
   Kino: {
     label: 'Kino',
     fullName: 'Kino Training',
-    color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700',
+    color: 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300',
     icon: '⬆️',
     description: 'Kino Training: Start light, increase weight each set',
   },
   RestPause: {
     label: 'Rest-Pause',
     fullName: 'Rest-Pause Training',
-    color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border-orange-300 dark:border-orange-700',
+    color: 'bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300',
     icon: '⏸️',
     description: '1 heavy set + 3 mini-sets with 10-15 second rests',
   },
   StraightSets: {
     label: 'Straight Sets',
     fullName: 'Straight Sets',
-    color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700',
+    color: 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300',
     icon: '➡️',
     description: 'Straight Sets: Same weight and reps for all sets',
   },
   'Intermediate RPT': {
     label: 'RPT (2min)',
     fullName: 'Intermediate RPT',
-    color: 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700',
+    color: 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300',
     icon: '⬇️',
     description: 'Intermediate RPT: Same as RPT with 2-min rest periods',
   },
@@ -56,7 +56,6 @@ export const TrainingMethodBadge = ({
         className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium ${info.color}`}
         title={info.fullName}
       >
-        <span>{info.icon}</span>
         <span>{info.label}</span>
       </div>
 

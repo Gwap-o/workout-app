@@ -5,12 +5,12 @@ import { getWorkoutExercises } from '@/lib/constants/exercises';
 import { createWorkoutSession } from '@/lib/supabase/workouts';
 import { createExerciseLogs } from '@/lib/supabase/exercises';
 import { ExerciseCard } from './ExerciseCard';
-import { Input } from '@/components/ui/input';
+import { DatePicker } from '@/components/ui/date-picker';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DeloadWeekBanner } from './DeloadWeekBanner';
 import { useDeload } from '@/lib/hooks/useDeload';
 import { ScheduleValidator } from './ScheduleValidator';
 import { useWorkouts } from '@/lib/hooks/useWorkouts';
-import { TrainingMethodLegend } from './TrainingMethodBadge';
 
 interface WorkoutFormProps {
   profile: UserProfile;
@@ -19,7 +19,7 @@ interface WorkoutFormProps {
 export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
   const navigate = useNavigate();
   const [workoutType, setWorkoutType] = useState<'A' | 'B'>('A');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [date, setDate] = useState<Date>(new Date());
   const [exerciseLogs, setExerciseLogs] = useState<
     Omit<ExerciseLog, 'id' | 'user_id' | 'created_at'>[]
   >([]);
@@ -66,7 +66,7 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
       sets,
       hit_progression: hitProgression,
       notes: exerciseNotes,
-      date,
+      date: date.toISOString().split('T')[0],
     };
 
     if (existingIndex >= 0) {
@@ -89,7 +89,7 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
 
       // Create workout session
       const session = await createWorkoutSession({
-        date,
+        date: date.toISOString().split('T')[0],
         workout_type: workoutType,
         phase: profile.current_phase,
         completed: true,
@@ -117,63 +117,9 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
 
   return (
     <div className="space-y-6">
-      {/* Workout Settings */}
-      <div className="bg-white dark:bg-[#1C2128] p-6 rounded-lg shadow border border-[#E8EAED] dark:border-[#30363D]">
-        <h2 className="text-xl font-semibold mb-4 text-[#202124] dark:text-[#E6EDF3]">Workout Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">Date</label>
-            <Input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">
-              Workout Type
-            </label>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setWorkoutType('A')}
-                className={`flex-1 px-4 py-2 rounded font-medium ${
-                  workoutType === 'A'
-                    ? 'bg-[#20808D] dark:bg-[#1FB8CD] text-white'
-                    : 'bg-[#F5F5F5] dark:bg-[#161B22] text-[#202124] dark:text-[#E6EDF3] hover:bg-[#E8EAED] dark:hover:bg-[#1C2128]'
-                }`}
-              >
-                Workout A
-              </button>
-              <button
-                onClick={() => setWorkoutType('B')}
-                className={`flex-1 px-4 py-2 rounded font-medium ${
-                  workoutType === 'B'
-                    ? 'bg-[#20808D] dark:bg-[#1FB8CD] text-white'
-                    : 'bg-[#F5F5F5] dark:bg-[#161B22] text-[#202124] dark:text-[#E6EDF3] hover:bg-[#E8EAED] dark:hover:bg-[#1C2128]'
-                }`}
-              >
-                Workout B
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="mt-4">
-          <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">
-            Workout Notes (Optional)
-          </label>
-          <textarea
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            className="w-full px-3 py-2 border border-[#E8EAED] dark:border-[#30363D] bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] placeholder:text-[#80868B] dark:placeholder:text-[#6E7681] rounded focus:outline-none focus:ring-2 focus:ring-[#20808D] dark:focus:ring-[#1FB8CD]"
-            rows={3}
-            placeholder="How did you feel? Any observations?"
-          />
-        </div>
-      </div>
-
       {/* Schedule Validation */}
       <ScheduleValidator
-        workoutDate={new Date(date)}
+        workoutDate={date}
         schedule={profile.workout_schedule}
         lastWorkoutDate={lastWorkoutDate}
       />
@@ -190,9 +136,6 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
         }}
       />
 
-      {/* Training Method Legend */}
-      <TrainingMethodLegend />
-
       {/* Exercise List */}
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-[#202124] dark:text-[#E6EDF3]">Exercises</h2>
@@ -206,6 +149,46 @@ export const WorkoutForm = ({ profile }: WorkoutFormProps) => {
             deloadReductionPercentage={reductionPercentage}
           />
         ))}
+      </div>
+
+      {/* Workout Settings */}
+      <div className="bg-white dark:bg-[#1C2128] p-6 rounded-lg shadow border border-[#E8EAED] dark:border-[#30363D]">
+        <h2 className="text-xl font-semibold mb-4 text-[#202124] dark:text-[#E6EDF3]">Workout Details</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">Date</label>
+            <DatePicker
+              date={date}
+              onSelect={(selectedDate) => selectedDate && setDate(selectedDate)}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">
+              Workout Type
+            </label>
+            <Select value={workoutType} onValueChange={(value) => setWorkoutType(value as 'A' | 'B')}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select workout type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="A">Workout A</SelectItem>
+                <SelectItem value="B">Workout B</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="mt-4">
+          <label className="block text-sm font-medium mb-2 text-[#202124] dark:text-[#E6EDF3]">
+            Workout Notes (Optional)
+          </label>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="w-full px-3 py-2 border border-[#E8EAED] dark:border-[#30363D] bg-white dark:bg-[#1C2128] text-[#202124] dark:text-[#E6EDF3] placeholder:text-[#80868B] dark:placeholder:text-[#6E7681] rounded focus:outline-none focus:ring-2 focus:ring-[#20808D] dark:focus:ring-[#1FB8CD]"
+            rows={3}
+            placeholder="How did you feel? Any observations?"
+          />
+        </div>
       </div>
 
       {/* Save Button */}

@@ -5,6 +5,7 @@ import {
   calculateIndicatorProgress,
 } from '@/lib/constants/indicatorExercises';
 import { useExerciseHistory } from '@/lib/hooks/useExerciseHistory';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 
 interface IndicatorExerciseCardProps {
   exerciseName: IndicatorExerciseName;
@@ -96,7 +97,11 @@ export const IndicatorExerciseCard = ({
             </p>
           </div>
           <span className="text-[#80868B] dark:text-[#6E7681] ml-4">
-            {isExpanded ? '▼' : '▶'}
+            {isExpanded ? (
+              <ChevronDown className="w-5 h-5" />
+            ) : (
+              <ChevronRight className="w-5 h-5" />
+            )}
           </span>
         </div>
 
