@@ -6,7 +6,9 @@ const routeNames: Record<string, string> = {
   'workout': 'Log Workout',
   'history': 'Workout History',
   'nutrition': 'Nutrition',
-  'program': 'Program',
+  'indicators': 'Indicators',
+  'exercises': 'Exercise Library',
+  'guide': 'Guide',
   'settings': 'Settings',
 };
 

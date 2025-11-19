@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, X, Dumbbell, Target, Book, Calendar, ChevronRight } from 'lucide-react';
+import { Search, Filter, X, Dumbbell, Target, Calendar } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
-import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import {
   Table,
@@ -224,14 +223,6 @@ const ExerciseLibrary: React.FC = () => {
                 </p>
               </div>
             </div>
-            <Link
-              to="/program"
-              className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors text-sm font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg"
-            >
-              <Book className="w-4 h-4" />
-              View Program Guide
-              <ChevronRight className="w-4 h-4" />
-            </Link>
           </div>
           {/* Decorative gradient overlay */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-32 -mt-32" />
