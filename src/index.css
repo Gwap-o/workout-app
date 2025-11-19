@@ -2,12 +2,34 @@
 
 @plugin "tailwindcss-animate";
 
+/* Geist Sans Variable Font */
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Geist Mono Variable Font */
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /* Class-based dark mode for Tailwind v4 */
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Geist Font Family Configuration */
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
   /* Perplexity-inspired color palette */
 
   /* Light Mode Colors */
