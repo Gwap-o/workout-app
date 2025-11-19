@@ -4,7 +4,6 @@ import {
   Dumbbell,
   TrendingUp,
   Utensils,
-  BookOpen,
   Settings,
   LogOut,
   Menu,
@@ -12,6 +11,7 @@ import {
   User,
   Target,
   Library,
+  BookOpen,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -21,8 +21,8 @@ const navItems = [
   { to: '/history', icon: TrendingUp, label: 'History' },
   { to: '/indicators', icon: Target, label: 'Indicators' },
   { to: '/exercises', icon: Library, label: 'Exercises' },
+  { to: '/guide', icon: BookOpen, label: 'Guide' },
   { to: '/nutrition', icon: Utensils, label: 'Nutrition' },
-  { to: '/program', icon: BookOpen, label: 'Program' },
 ];
 
 export function MobileTopMenu() {

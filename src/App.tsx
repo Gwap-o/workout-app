@@ -7,9 +7,9 @@ import { WorkoutLogger } from './pages/WorkoutLogger'
 import { WorkoutHistory } from './pages/WorkoutHistory'
 import { Nutrition } from './pages/Nutrition'
 import { Settings } from './pages/Settings'
-import { Program } from './pages/Program'
 import { IndicatorDashboard } from './pages/IndicatorDashboard'
 import ExerciseLibrary from './pages/ExerciseLibrary'
+import Guide from './pages/Guide'
 import { Toaster } from 'sonner'
 
 function App() {
@@ -53,14 +53,6 @@ function App() {
             }
           />
           <Route
-            path="/program"
-            element={
-              <ProtectedRoute>
-                <Program />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/indicators"
             element={
               <ProtectedRoute>
@@ -73,6 +65,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ExerciseLibrary />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/guide"
+            element={
+              <ProtectedRoute>
+                <Guide />
               </ProtectedRoute>
             }
           />
