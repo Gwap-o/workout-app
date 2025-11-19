@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { WorkoutSession } from '@/types';
 import { useSessionExerciseLogs } from '@/lib/hooks/useExerciseHistory';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 
 interface WorkoutCardProps {
   workout: WorkoutSession;
@@ -71,7 +72,11 @@ export const WorkoutCard = ({ workout, onDelete }: WorkoutCardProps) => {
             >
               Delete
             </button>
-            <span className="text-[#80868B] dark:text-[#6E7681]">{isExpanded ? '▼' : '▶'}</span>
+            {isExpanded ? (
+              <ChevronDown className="w-5 h-5 text-[#80868B] dark:text-[#6E7681]" />
+            ) : (
+              <ChevronRight className="w-5 h-5 text-[#80868B] dark:text-[#6E7681]" />
+            )}
           </div>
         </div>
       </div>

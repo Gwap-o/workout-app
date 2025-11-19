@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { SetLog } from '@/types';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 
 interface RestPauseMiniSetsProps {
   mainSet: SetLog;
@@ -34,7 +35,11 @@ export const RestPauseMiniSets = ({
             onClick={() => setExpandedMiniSets(!expandedMiniSets)}
             className="text-[#5F6368] dark:text-[#8B949E] hover:text-[#202124] dark:hover:text-[#E6EDF3]"
           >
-            <span className="text-sm">{expandedMiniSets ? '▼' : '▶'}</span>
+            {expandedMiniSets ? (
+              <ChevronDown className="w-4 h-4" />
+            ) : (
+              <ChevronRight className="w-4 h-4" />
+            )}
           </button>
           <h4 className="text-sm font-semibold text-[#202124] dark:text-[#E6EDF3]">
             Mini-Sets (10-15 sec rest)

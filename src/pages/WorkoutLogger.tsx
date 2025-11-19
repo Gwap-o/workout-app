@@ -4,6 +4,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { getUserProfile } from '@/lib/supabase/userProfile';
 import { WorkoutForm } from '@/components/workout/WorkoutForm';
 import { Layout } from '@/components/layout/Layout';
+import { TrainingMethodLegend } from '@/components/workout/TrainingMethodBadge';
+import { Button } from '@/components/ui/button';
+import { Settings } from 'lucide-react';
 import type { UserProfile } from '@/types';
 
 export const WorkoutLogger = () => {
@@ -11,6 +14,7 @@ export const WorkoutLogger = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showSetGuide, setShowSetGuide] = useState(false);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -61,10 +65,47 @@ export const WorkoutLogger = () => {
   return (
     <Layout>
       <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-[#202124] dark:text-[#E6EDF3]">Log Workout</h1>
-        <p className="text-sm sm:text-base text-[#5F6368] dark:text-[#8B949E]">
-          Phase {profile.current_phase} - Week {profile.current_week}
-        </p>
+        {/* Header with title and action buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#202124] dark:text-[#E6EDF3]">Log Workout</h1>
+            <p className="text-sm sm:text-base text-[#5F6368] dark:text-[#8B949E] mt-1">
+              Phase {profile.current_phase} - Week {profile.current_week}
+            </p>
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex items-center gap-2">
+            {/* Set Guide Button - Primary style like Log Workout */}
+            <Button
+              onClick={() => setShowSetGuide(!showSetGuide)}
+              variant="default"
+              size="sm"
+              className="gap-1.5 sm:gap-2 flex-shrink-0 h-9 sm:h-10"
+            >
+              <span className="hidden sm:inline whitespace-nowrap">Set Guide</span>
+              <span className="sm:hidden whitespace-nowrap">Guide</span>
+            </Button>
+
+            {/* Edit Phase Button - Outline style like Edit Profile */}
+            <Button
+              onClick={() => navigate('/settings?section=phase')}
+              variant="outline"
+              size="sm"
+              className="gap-1.5 sm:gap-2 flex-shrink-0 h-9 sm:h-10"
+            >
+              <Settings className="w-4 h-4 flex-shrink-0" />
+              <span className="hidden sm:inline whitespace-nowrap">Edit Phase</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Training Method Legend (collapsible) */}
+        {showSetGuide && (
+          <div className="mt-4">
+            <TrainingMethodLegend />
+          </div>
+        )}
       </div>
 
       <WorkoutForm profile={profile} />

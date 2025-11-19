@@ -16,6 +16,7 @@ import { InlineProgressionWarning } from './ProgressionWarning';
 import { checkProgressionGuardrails } from '@/lib/utils/progressionValidation';
 import type { GuardrailCheck } from '@/lib/utils/progressionValidation';
 import { TrainingMethodBadge } from './TrainingMethodBadge';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -273,12 +274,11 @@ export const ExerciseCard = ({
             </p>
           </div>
           <div className="flex items-center gap-2">
-            {allSetsCompleted && (
-              <span className="text-[#20808D] dark:text-[#1FB8CD] font-medium">✓</span>
+            {isExpanded ? (
+              <ChevronDown className="w-5 h-5 text-[#80868B] dark:text-[#6E7681]" />
+            ) : (
+              <ChevronRight className="w-5 h-5 text-[#80868B] dark:text-[#6E7681]" />
             )}
-            <span className="text-[#80868B] dark:text-[#6E7681]">
-              {isExpanded ? '▼' : '▶'}
-            </span>
           </div>
         </div>
       </div>
@@ -371,7 +371,7 @@ export const ExerciseCard = ({
                 {exercise.training_method === 'RPT' && index > 0 && (
                   <div className="mb-2 p-2 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded text-xs flex items-center justify-between">
                     <span className="text-purple-700 dark:text-purple-300">
-                      ⬇️ RPT: Reduce weight by ~10% from previous set
+                      RPT: Reduce weight by ~10% from previous set
                     </span>
                     {index === 1 && sets[0].weight > 0 && (
                       <span className="font-medium text-purple-800 dark:text-purple-200">
@@ -390,7 +390,7 @@ export const ExerciseCard = ({
                 {exercise.training_method === 'Kino' && index > 0 && (
                   <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs flex items-center justify-between">
                     <span className="text-blue-700 dark:text-blue-300">
-                      ⬆️ Kino: Increase weight from previous set
+                      Kino: Increase weight from previous set
                     </span>
                     {sets[index - 1].weight > 0 && (
                       <span className="font-medium text-blue-800 dark:text-blue-200">
@@ -445,7 +445,7 @@ export const ExerciseCard = ({
                       onClick={() => setActiveTimerSetIndex(index)}
                       className="w-full px-4 py-2 bg-[#20808D] dark:bg-[#1FB8CD] text-white rounded-lg hover:bg-[#1A6B76] dark:hover:bg-[#2DD4E8] transition-colors font-medium text-sm"
                     >
-                      ⏱️ Start Rest Timer
+                      Start Rest Timer
                     </button>
                   </div>
                 )}

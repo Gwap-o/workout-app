@@ -55,7 +55,10 @@
       "mcp__playwright__playwright_fill",
       "Bash(\"C:\\Users\\Danny\\Desktop\\Claude\\workout-app\\src\\components\\workout\\WarmupSetCalculator.tsx\")",
       "Bash(node fix-rep-range.js:*)",
-      "Bash(del:*)"
+      "Bash(del:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)"
     ],
     "deny": [],
     "ask": []
